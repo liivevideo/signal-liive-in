@@ -45,18 +45,18 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
-        // query: {
-        //   presets: [
-        //     "es2015",
-        //     "stage-1",
-        //     "react",
-        //     "react-native",
-        //   ],
-        //   plugins: [
-        //     "transform-decorators-legacy",
-        //     "syntax-flow"
-        //   ]
-        // }
+        query: {
+          presets: [
+            "es2015",
+            // "stage-1",
+            // "react",
+            // "react-native",
+          ],
+          // plugins: [
+          //   "transform-decorators-legacy",
+          //   "syntax-flow"
+          // ]
+        }
       }
     ],
     resolve: {

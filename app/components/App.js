@@ -1,120 +1,75 @@
-var socket = io();
-
 var RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection ||
-    window.webkitRTCPeerConnection || window.msRTCPeerConnection;
+    window.webkitRTCPeerConnection || window.msRTCPeerConnection
 
 var RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSessionDescription ||
-    window.webkitRTCSessionDescription || window.msRTCSessionDescription;
-
+    window.webkitRTCSessionDescription || window.msRTCSessionDescription
+var getUserMedia = (navigator.getUserMedia || navigator.mozGetUserMedia ||
+    navigator.webkitGetUserMedia || navigator.msGetUserMedia).bind(navigator)
 
 var selfView = document.getElementById("selfView");
 var remoteViewContainer = document.getElementById("remoteViewContainer");
-
+var io = require('socket.io-client')
 // rtc observers.
-addedTextChannel = function (dataChannel) {
-    dataChannel.onerror = function (error) {
-        console.log("dataChannel.onerror", error)
+var addedTextChannel = function (socketId, dataChannel) {
+    console.log("ADDING TEXT CHANNEL")
+
+    dataChannel.onerror = function (error) { console.log("dataChannel.onerror", error)
     }
-    dataChannel.onmessage = function (event) {
-        console.log("dataChannel.onmessage:", event.data)
+    dataChannel.onmessage = function (event) { console.log("dataChannel.onmessage:", event.data)
         var content = document.getElementById('textRoomContent')
-        content.innerHTML = content.innerHTML + '<p>' + socketId + ': ' + event.data + '</p>'
-        Manipulation
+        content.innerHTML = content.innerHTML + '<p>' + socketId +
+            ': ' + event.data + '</p>'
     }
-    dataChannel.onopen = function () {
-        console.log('dataChannel.onopen')
+    dataChannel.onopen = function () { console.log('dataChannel.onopen')
         var textRoom = document.getElementById('textRoom')
         textRoom.style.display = "block";
     }
-    dataChannel.onclose = function () {
-        console.log("dataChannel.onclose")
+    dataChannel.onclose = function () { console.log("dataChannel.onclose")
     }
     return dataChannel
 }
-removedVideoChannel = function (id) {
-    video = document.getElementById("remoteView" + id);
+var removedVideoChannel = function (id) {
+    console.log("REMOVING VIDEO CHANNEL VIEW")
+    var video = document.getElementById("remoteView" + id);
     if (video) video.remove();
 }
-addedVideoChannel = function(id, stream) {
-    console.log('onaddstream', event);
+var addedVideoChannel = function(id, stream) { console.log('onaddstream', event);
+    console.log("ADDING VIDEO CHANNEL VIEW")
     var element = document.createElement('video');
     element.id = "remoteView" + id;
     element.autoplay = 'autoplay';
     element.src = URL.createObjectURL(stream);
     remoteViewContainer.appendChild(element);
 }
-// handshaking observers.
-didConnect = function(data) {
-    rtcChannel.getMedia({ "audio": true, "video": true },
-        function (stream) {
-            selfView.src = URL.createObjectURL(stream)
-            selfView.muted = true
-        }
-    )
-    // selfView.src = URL.createObjectURL(stream)
-    // selfView.muted = true
-}
-didExchange = function(data) {
-    rtcChannel.exchange(data,
-        function (id, description) {
-            if (id != null && description != null)
-                handshaker.description(id, description)
-        }
-    )
-}
-didLeave = function(id) {
-    console.log(id)
-    rtcChannel.deleteListener(id,
-        function (id)
-        {
-            console.log("deleted: " + id)
-        }
-    )
+var foundLocalVideoChannel = function(stream) {
+    console.log("SETTING LOCAL VIDEO CHANNEL VIEW")
+    selfView.src = URL.createObjectURL(stream)
+    selfView.muted = true
 }
 
-var RTCChannel = require('../lib/RTCChannel')
-var configuration = {"iceServers":
-    [{"url": "stun:stun.l.google.com:19302"}]};
-var rtcChannel = new RTCChannel(configuration, {
-    addedVideoChannel: addedTextChannel,
-    removedVideoChannel: removedVideoChannel,
-    addedTextChannel: addedTextChannel
-})
+var configuration = {
+    iceServers: [{"url": "stun:stun.l.google.com:19302"}],
+    io: io,
+    signalServer: "https://50.67.201.214:4443",
+    RTCSessionDescription: RTCSessionDescription,
+    RTCPeerConnection: RTCPeerConnection,
+    getUserMedia: getUserMedia
+}
 
-var Handshake = require ('../lib/Handshake')
-var handshaker = new Handshake({
-    didConnect:didConnect,
-    didExchange: didExchange,
-    didLeave: didLeave
-})
-
-function press() {
-    var roomID = document.getElementById('roomID').value;
-    if (roomID == "") {
-        alert('Please enter room ID');
-    } else {
-        var roomIDContainer = document.getElementById('roomIDContainer');
-        roomIDContainer.parentElement.removeChild(roomIDContainer);
-
-        handshaker.join(roomID, function (ids) {
-            console.log('join', ids);
-            for (var i in ids) {
-                var id = ids[i];
-                rtcChannel.createListener(id, true, handshaker)
-            }
-            console.log("press join finished")
-        });
+var Room = require('../lib/Room')
+var room = new Room(
+    configuration,
+    {
+        foundLocalVideoChannel: foundLocalVideoChannel,
+        addedVideoChannel: addedVideoChannel,
+        removedVideoChannel: removedVideoChannel,
+        addedTextChannel: addedTextChannel
     }
-}
-function textRoomPress() {
-    var text = document.getElementById('textRoomInput').value;
-    if (text == "") {
-        alert('Enter something');
-    } else {
-        document.getElementById('textRoomInput').value = '';
-        var content = document.getElementById('textRoomContent');
-        content.innerHTML = content.innerHTML + '<p>' + 'Me' + ': ' + text + '</p>';
-        rtcChannel.send(text)
-    }
-}
+)
+module.exports = room
+window.room = room
+
+
+
+
 

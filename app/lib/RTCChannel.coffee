@@ -1,106 +1,142 @@
-
 class RTCChannel
-    pc = null
-    pcPeers = []
-    getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia;
-
+    pcPeers = {}
+    localStream = null
+    getUserMedia = null
     # observers = {
+    #    foundLocalVideoChannel: foundLocalVideoChannel,
     #    addedVideoChannel: (socketId, event) ->
     #    removedVideoChannel: (socketId) ->
     #    addedTextChannel: (dataChannel) ->
+    # reactions = {
+    #    exchangeDescription: (socketId, localDescription) ->
+    #    exchangeCandidate: (socketid, candidate)
     # }
-
-    localStream = null
-    observers = null
     configuration = null
-
-    constructor: (_configuration, _observers) ->
+    observers = null
+    reactions = null
+    RTCPeerConnection = null
+    RTCSessionDescription = null
+    constructor: (_configuration, _observers, _reactions) ->
         configuration = _configuration
+        RTCPeerConnection = _configuration.RTCPeerConnection
+        RTCSessionDescription = _configuration.RTCSessionDescription
+        getUserMedia = configuration.getUserMedia
         observers = _observers
+        reactions = _reactions
 
-    createTextChannel: ()  ->
-        if (pc.textDataChannel?)
-            return
-
-        dataChannel = pc.createDataChannel("text")
-        pc.textDataChannel = observers.addedTextChannel(dataChannel)
-
-    createListener: (socketId, isOffer, handshaker) ->
-        pc = new RTCPeerConnection(configuration)
-
-        pcPeers[socketId] = pc
-        pc.onicecandidate = (event) ->
-            console.log('onicecandidate', event)
-            if (event.candidate)
-                handshaker.candidate(socketId, event.candidate)
-
-        pc.onnegotiationneeded = () ->
-            console.log('onnegotiationneeded')
-            if (isOffer)
-                pc.createOffer((desc) ->
-                    console.log('createOffer', desc)
-                    pc.setLocalDescription(desc, () ->
-                        console.log('setLocalDescription', pc.localDescription)
-                        handshaker.description(socketId, pc.localDescription)
-                    , (error) -> console.log(error) )
-                , (error) -> console.log(error) )
-
-        pc.oniceconnectionstatechange = (event) ->
-            console.log('oniceconnectionstatechange', event)
-            if (event.target.iceConnectionState == 'connected')
-                @createTextChannel(socketId, event)
-
-        pc.onsignalingstatechange = (event) ->
-            console.log('onsignalingstatechange', event)
-
-        pc.onaddstream = (event) ->
-            observers.addedVideoChannel(socketId, event.stream)
-
-        pc.addStream(localStream)
-
-    # types: { "audio": true, "video": true }
     getMedia: (types, callback) ->
+        console.log("Get Media!!!!")
         getUserMedia(types, (stream) ->
             localStream = stream
+            console.log("setting local stream:"+JSON.stringify(stream))
+            observers.foundLocalVideoChannel(localStream)
             callback(stream)
+            return
         , (error) -> console.log(error) )
+        return
+
+    createTextChannel = (pc, socketId)  ->
+        console.log('RTCChannel:: create Text Channel', event)
+        return if (pc.textDataChannel?)
+        dataChannel = pc.createDataChannel("text")
+        pc.textDataChannel = observers.addedTextChannel(socketId, dataChannel)
+        return
+
+    createListener: (socketId, isOffer) ->
+        _createListener(socketId, isOffer)
+
+    createOffer = (pc,socketId) ->
+        console.log('is Offer!!!')
+        pc.createOffer((desc) ->
+            console.log('createOffer', desc)
+            pc.setLocalDescription(desc, () ->
+                console.log('RTCChannel::id:'+socketId+' in negotiation: setLocalDescription', pc.localDescription)
+                reactions.exchangeDescription(socketId, pc.localDescription)
+            , (error) -> console.log("ERROR::onnegotiationneeded: set local description error:"+error)
+            )
+        , (error) -> console.log("ERROR::onnegotiationneeded: Create Offer error:"+error)
+        )
+    _createListener = (socketId, isOffer) ->
+        console.log("RTCChannel::CreateListener: id:"+socketId+"  offer:"+isOffer)
+        pc = new RTCPeerConnection(configuration)
+        pcPeers[socketId] = pc
+        pc.onicecandidate = (event) ->
+            if (event? and event.candidate?)
+                console.log('RTCChannel:: id:'+socketId+' on ice candidate ' + event.candidate)
+                reactions.exchangeCandidate(socketId, event.candidate)
+            else
+                console.log('RTCChannel:: id:'+socketId+' on ice candidate, not a candidate')
+        pc.onnegotiationneeded = () ->
+            if (isOffer)
+                console.log('RTCChannel::id:'+socketId+' on negotiation needed:'+ event)
+                createOffer(pc, socketId)
+            else
+                console.log('RTCChannel::id:'+socketId+' on negotiation needed: no offer.')
+        pc.oniceconnectionstatechange = (event) ->
+            console.log('RTCChannel:: id:'+socketId+' on ice connection state change', event)
+            if (event.target.iceConnectionState == 'connected')
+                createTextChannel(pc, socketId)
+        pc.onsignalingstatechange = (event) ->
+            console.log('RTCChannel:: onsignalingstatechange', event)
+        pc.onaddstream = (event) ->
+            console.log('RTCChannel::id:'+socketId+' on add stream...')
+            observers.addedVideoChannel(socketId, event.stream)
+        console.log("RTC Channel:: Add stream:"+JSON.stringify(localStream))
+        pc.addStream(localStream)
+        return pc
 
     deleteListener: (socketId, callback) ->
+        console.log('RTCChannel:: id: '+socketId+' delete listener ...')
         pc = pcPeers[socketId]
         if (pc)
-            pc.close()
+            pc.close();
             delete pcPeers[socketId]
         observers.removedVideoChannel(socketId)
-        callback(socketId)
+        callback(null, socketId)
+        return
 
     send: (text) ->
-        for pc in pcPeers
-            pc.textDataChannel.send(text)
+        console.log("RTCChannel:: send:"+text)
 
-    exchange: (data, callback) ->
+        for key,pc of pcPeers
+            pc.textDataChannel.send(text)
+        return
+
+    exchange: (data) ->
+        console.log("RTCChannel::"+data.from+" exchange:"+data.sdp)
         fromId = data.from
-        pc
-        if (fromId in pcPeers)
-            pc = pcPeers[fromId]
+        if (pcPeers[fromId]?)
+            console.log("FOUND PEER___________:"+fromId)
+            pc2 = pcPeers[fromId]
         else
-            pc = createPC(fromId, false)
+            console.log("createPC from exchange!!!!!!!!!!"+fromId)
+            pc2 = _createListener(fromId, false)
 
         if (data.sdp)
-            console.log('exchange sdp', data)
-            pc.setRemoteDescription(new RTCSessionDescription(data.sdp), () ->
-                if (pc.remoteDescription.type == "offer")
-                    pc.createAnswer((desc) ->
-                        console.log('createAnswer', desc)
-                        pc.setLocalDescription(desc, () ->
-                            console.log('setLocalDescription', pc.localDescription)
-                            callback(fromId, pc.localDescription)
-
-                        , (error) -> console.log(error) )
-                    , (error) -> console.log(error) )
-            , (error) -> console.log(error) )
+            console.log('RTCChannel:: exchange description', JSON.stringify(data))
+            pc2.setRemoteDescription(new RTCSessionDescription(data.sdp), () ->
+                if (pc2.remoteDescription.type == "offer")
+                    pc2.createAnswer((desc) ->
+                        console.log('RTCChannel:: createAnswer', desc)
+                        pc2.setLocalDescription(desc, () ->
+                            console.log('RTCChannel:: setLocalDescription', pc2.localDescription)
+                            reactions.exchangeDescription(fromId, pc2.localDescription)
+                        , (error) ->
+                            console.log("RTCChannel:: ERROR in set local descriptoin:"+error, null)
+                            return
+                        )
+                    , (error) ->
+                        console.log("RTCChannel:: ERROR in create answer:"+error, null)
+                        return
+                    )
+                return
+            , (error) ->
+                console.log("RTCChannel:: ERROR in set remote description: "+error, null)
+                return
+            )
         else
-            console.log('exchange candidate', data)
-            pc.addIceCandidate(new RTCIceCandidate(data.candidate))
-            callback(null, null)
+            console.log('RTCChannel:: new ice candidate', data)
+            pc2.addIceCandidate(new RTCIceCandidate(data.candidate))
+        return
 
 module.exports = RTCChannel

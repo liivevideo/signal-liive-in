@@ -19,6 +19,30 @@
   <button onclick="press();">Join/Create room</button>
 </div>
 </body>
-  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="/react-native-webrtc-server/web/src/bundle.js"></script>
   <script src="/bundle.js"></script>
+
+  <script type="text/javascript">
+    function press() {
+      var roomID = document.getElementById('roomID').value;
+      if (roomID == "") {
+        alert('Please enter room ID');
+      } else {
+        var roomIDContainer = document.getElementById('roomIDContainer');
+        roomIDContainer.parentElement.removeChild(roomIDContainer);
+        window.room.join(roomID) // todo reference to room through window?
+      }
+    }
+    function textRoomPress() {
+      var text = document.getElementById('textRoomInput').value;
+      if (text == "") {
+        alert('Enter something');
+      } else {
+        document.getElementById('textRoomInput').value = '';
+        var content = document.getElementById('textRoomContent');
+        content.innerHTML = content.innerHTML + '<p>' + 'Me' + ': ' + text + '</p>';
+        window.room.say(text) // todo reference to room through window?
+      }
+    }
+  </script>
 </html>
