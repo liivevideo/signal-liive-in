@@ -9,6 +9,7 @@ var getUserMedia = (navigator.getUserMedia || navigator.mozGetUserMedia ||
 var selfView = document.getElementById("selfView");
 var remoteViewContainer = document.getElementById("remoteViewContainer");
 var io = require('socket.io-client')
+
 // rtc observers.
 var addedTextChannel = function (socketId, dataChannel) {
     console.log("ADDING TEXT CHANNEL")
