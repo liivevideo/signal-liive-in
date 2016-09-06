@@ -85,6 +85,8 @@
 
   app.use('/', express["static"](path.join(__dirname, 'public')));
 
+  app.use('/web/src', express["static"](path.join(__dirname, 'web/src')));
+
   serverHttps.listen(serverPortHttps, function() {
     console.log('server up and running at %s port', serverPortHttps);
     if (process.env.LOCAL) {

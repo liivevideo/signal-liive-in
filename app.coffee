@@ -66,6 +66,7 @@ io.on('connection', (socket) ->
 
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')))
 app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/web/src', express.static(path.join(__dirname, 'web/src')))
 
 serverHttps.listen(serverPortHttps, () ->
   console.log('server up and running at %s port', serverPortHttps)

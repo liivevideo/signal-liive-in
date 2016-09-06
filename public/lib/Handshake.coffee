@@ -11,7 +11,7 @@ class Handshake
     constructor: (configuration, _reactions) ->
         io = configuration.io
         signalServer = configuration.signalServer
-        socket = io(signalServer)
+        socket = io(signalServer) 
         reactions = _reactions
         socket.on('connect', _connect)
         socket.on('exchange', _exchange)
@@ -72,6 +72,5 @@ class Handshake
 #            reactions.didLeave(id) if reactions.didLeave?
 #        )
 
-
-
-module.exports = Handshake
+module.exports = Handshake if (module? and module.exports?)
+window.Handshake = Handshake if (window?)

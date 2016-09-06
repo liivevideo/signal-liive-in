@@ -12,18 +12,14 @@
             <input id="textRoomInput" >
             <button onclick="textRoomPress();">Send</button>
         </div>
-        <video id="selfView" autoplay></video>
+        <video id="selfView" autoplay="autoplay"></video>
         <div id="remoteViewContainer"></div>
         <div id="roomIDContainer">
             <input id="roomID" value="abc">
             <button onclick="press();">Join/Create room</button>
         </div>
     </body>
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="https://liive.io/lib/Handshake.js"></script>
-    <script src="https://liive.io/lib/RTCChannel.js"></script>
-    <script src="https://liive.io/lib/Room.js"></script>
-    <script src="https://liive.io/lib/App.js"></script>
+    <script src="/web/src/bundle.js"></script>
 
     <script type="text/javascript">
         function press() {
@@ -48,5 +44,4 @@
             }
         }
     </script>
-
 </html>
