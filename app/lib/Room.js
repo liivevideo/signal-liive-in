@@ -68,7 +68,7 @@
         "audio": true,
         "video": true
       }, function(stream) {
-        return console.log("Room:: did Connect end: " + stream);
+        return console.log("Room:: did Connect finished: " + stream);
       });
     };
 
