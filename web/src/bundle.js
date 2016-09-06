@@ -713,7 +713,7 @@
 	 * We reuse the existing instance based on same scheme/port/host,
 	 * and we initialize sockets for each namespace.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function lookup(uri, opts) {
@@ -746,7 +746,7 @@
 	/**
 	 * Protocol version.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.protocol = parser.protocol;
@@ -755,7 +755,7 @@
 	 * `connect`.
 	 *
 	 * @param {String} uri
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.connect = lookup;
@@ -763,7 +763,7 @@
 	/**
 	 * Expose constructors for standalone build.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.Manager = __webpack_require__(16);
@@ -794,7 +794,7 @@
 	 * @param {String} url
 	 * @param {Object} An object meant to mimic window.location.
 	 *                 Defaults to window.location.
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function url(uri, loc){
@@ -897,7 +897,7 @@
 	 *
 	 * @param {String} name
 	 * @return {Type}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function debug(name) {
@@ -935,7 +935,7 @@
 	 * separated by a colon and wildcards.
 	 *
 	 * @param {String} name
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	debug.enable = function(name) {
@@ -960,7 +960,7 @@
 	/**
 	 * Disable debug output.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	debug.disable = function(){
@@ -991,7 +991,7 @@
 	 *
 	 * @param {String} name
 	 * @return {Boolean}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	debug.enabled = function(name) {
@@ -1043,7 +1043,7 @@
 	/**
 	 * Protocol version.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.protocol = 4;
@@ -1051,7 +1051,7 @@
 	/**
 	 * Packet types.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.types = [
@@ -1067,7 +1067,7 @@
 	/**
 	 * Packet type `connect`.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.CONNECT = 0;
@@ -1075,7 +1075,7 @@
 	/**
 	 * Packet type `disconnect`.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.DISCONNECT = 1;
@@ -1083,7 +1083,7 @@
 	/**
 	 * Packet type `event`.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.EVENT = 2;
@@ -1091,7 +1091,7 @@
 	/**
 	 * Packet type `ack`.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.ACK = 3;
@@ -1099,7 +1099,7 @@
 	/**
 	 * Packet type `error`.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.ERROR = 4;
@@ -1107,7 +1107,7 @@
 	/**
 	 * Packet type 'binary event'
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.BINARY_EVENT = 5;
@@ -1115,7 +1115,7 @@
 	/**
 	 * Packet type `binary ack`. For acks with binary arguments.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.BINARY_ACK = 6;
@@ -1123,7 +1123,7 @@
 	/**
 	 * Encoder constructor.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.Encoder = Encoder;
@@ -1131,7 +1131,7 @@
 	/**
 	 * Decoder constructor.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.Decoder = Decoder;
@@ -1139,7 +1139,7 @@
 	/**
 	 * A socket.io Encoder instance
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function Encoder() {}
@@ -1151,7 +1151,7 @@
 	 * @param {Object} obj - packet object
 	 * @param {Function} callback - function to handle encodings (likely engine.write)
 	 * @return Calls callback with Array of encodings
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Encoder.prototype.encode = function(obj, callback){
@@ -1241,7 +1241,7 @@
 	 * A socket.io Decoder instance
 	 *
 	 * @return {Object} decoder
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function Decoder() {
@@ -1259,7 +1259,7 @@
 	 *
 	 * @param {String} obj - encoded packet
 	 * @return {Object} packet
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Decoder.prototype.add = function(obj) {
@@ -1367,7 +1367,7 @@
 	/**
 	 * Deallocates a parser's resources
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Decoder.prototype.destroy = function() {
@@ -1446,7 +1446,7 @@
 	 *
 	 * @param {String} name
 	 * @return {Type}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function debug(name) {
@@ -1484,7 +1484,7 @@
 	 * separated by a colon and wildcards.
 	 *
 	 * @param {String} name
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	debug.enable = function(name) {
@@ -1509,7 +1509,7 @@
 	/**
 	 * Disable debug output.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	debug.disable = function(){
@@ -1540,7 +1540,7 @@
 	 *
 	 * @param {String} name
 	 * @return {Boolean}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	debug.enabled = function(name) {
@@ -2471,7 +2471,7 @@
 	/**
 	 * Initialize a new `Emitter`.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function Emitter(obj) {
@@ -2499,7 +2499,7 @@
 	 * @param {String} event
 	 * @param {Function} fn
 	 * @return {Emitter}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Emitter.prototype.on =
@@ -2517,7 +2517,7 @@
 	 * @param {String} event
 	 * @param {Function} fn
 	 * @return {Emitter}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Emitter.prototype.once = function(event, fn){
@@ -2541,7 +2541,7 @@
 	 * @param {String} event
 	 * @param {Function} fn
 	 * @return {Emitter}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Emitter.prototype.off =
@@ -2606,7 +2606,7 @@
 	 *
 	 * @param {String} event
 	 * @return {Array}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Emitter.prototype.listeners = function(event){
@@ -2619,7 +2619,7 @@
 	 *
 	 * @param {String} event
 	 * @return {Boolean}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Emitter.prototype.hasListeners = function(event){
@@ -2647,7 +2647,7 @@
 	 *
 	 * @param {Object} packet - socket.io event packet
 	 * @return {Object} with deconstructed packet and list of buffers
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.deconstructPacket = function(packet){
@@ -2689,7 +2689,7 @@
 	 * @param {Object} packet - event packet with placeholders
 	 * @param {Array} buffers - binary buffers to put in placeholder positions
 	 * @return {Object} reconstructed packet
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.reconstructPacket = function(packet, buffers) {
@@ -2827,7 +2827,7 @@
 	 *
 	 * @param {String} engine instance or engine uri/opts
 	 * @param {Object} options
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function Manager(uri, opts){
@@ -2900,7 +2900,7 @@
 	 *
 	 * @param {Boolean} true/false if it should automatically reconnect
 	 * @return {Manager} self or value
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Manager.prototype.reconnection = function(v){
@@ -2914,7 +2914,7 @@
 	 *
 	 * @param {Number} max reconnection attempts before giving up
 	 * @return {Manager} self or value
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Manager.prototype.reconnectionAttempts = function(v){
@@ -2928,7 +2928,7 @@
 	 *
 	 * @param {Number} delay
 	 * @return {Manager} self or value
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Manager.prototype.reconnectionDelay = function(v){
@@ -2950,7 +2950,7 @@
 	 *
 	 * @param {Number} delay
 	 * @return {Manager} self or value
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Manager.prototype.reconnectionDelayMax = function(v){
@@ -2964,7 +2964,7 @@
 	 * Sets the connection timeout. `false` to disable
 	 *
 	 * @return {Manager} self or value
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Manager.prototype.timeout = function(v){
@@ -2994,7 +2994,7 @@
 	 *
 	 * @param {Function} optional, callback
 	 * @return {Manager} self
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Manager.prototype.open =
@@ -3117,7 +3117,7 @@
 	 * Creates a new socket for the given `nsp`.
 	 *
 	 * @return {Socket}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Manager.prototype.socket = function(nsp){
@@ -3322,7 +3322,7 @@
 	/**
 	 * Exports parser
 	 *
-	 * @api public
+	 * @api .well-known
 	 *
 	 */
 	module.exports.parser = __webpack_require__(27);
@@ -3364,7 +3364,7 @@
 	 *
 	 * @param {String|Object} uri or options
 	 * @param {Object} options
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function Socket(uri, opts){
@@ -3447,7 +3447,7 @@
 	/**
 	 * Protocol version.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Socket.protocol = parser.protocol; // this is an int
@@ -3710,7 +3710,7 @@
 	/**
 	 * Called when connection is deemed open.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Socket.prototype.onOpen = function () {
@@ -3829,7 +3829,7 @@
 	/**
 	* Sends a ping packet.
 	*
-	* @api public
+	* @api .well-known
 	*/
 	
 	Socket.prototype.ping = function () {
@@ -3888,7 +3888,7 @@
 	 * @param {String} message.
 	 * @param {Function} callback function.
 	 * @return {Socket} for chaining.
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Socket.prototype.write =
@@ -4216,7 +4216,7 @@
 	 * XHR Polling constructor.
 	 *
 	 * @param {Object} opts
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function XHR(opts){
@@ -4319,7 +4319,7 @@
 	 * Request constructor
 	 *
 	 * @param {Object} options
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function Request(opts){
@@ -4543,7 +4543,7 @@
 	/**
 	 * Aborts the request.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Request.prototype.abort = function(){
@@ -4691,7 +4691,7 @@
 	/**
 	 * Starts polling cycle.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Polling.prototype.poll = function(){
@@ -4892,7 +4892,7 @@
 	 *
 	 * @param {String} str
 	 * @return {Transport} for chaining
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Transport.prototype.onError = function (msg, desc) {
@@ -4906,7 +4906,7 @@
 	/**
 	 * Opens the transport.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Transport.prototype.open = function () {
@@ -5349,7 +5349,7 @@
 	 * decoded from their base64 representation
 	 *
 	 * @param {String} data, callback method
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.decodePayload = function (data, binaryType, callback) {
@@ -5533,7 +5533,7 @@
 	 * description of encodePayloadAsBinary
 	 *
 	 * @param {ArrayBuffer} data, callback method
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.decodePayloadAsBinary = function (data, binaryType, callback) {
@@ -5641,7 +5641,7 @@
 	 * Right now only Buffer and ArrayBuffer are supported..
 	 *
 	 * @param {Object} anything
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function hasBinary(data) {
@@ -5691,7 +5691,7 @@
 	 * An abstraction for slicing an arraybuffer even when
 	 * ArrayBuffer.prototype.slice is not supported
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	module.exports = function(arraybuffer, start, end) {
@@ -6249,7 +6249,7 @@
 	/**
 	 * Colorize log arguments if enabled.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function formatArgs() {
@@ -6291,7 +6291,7 @@
 	 * Invokes `console.log()` when available.
 	 * No-op when `console.log` is not a "function".
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function log() {
@@ -6403,7 +6403,7 @@
 	 *
 	 * @param {String} namespace
 	 * @return {Function}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function debug(namespace) {
@@ -6477,7 +6477,7 @@
 	 * separated by a colon and wildcards.
 	 *
 	 * @param {String} namespaces
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function enable(namespaces) {
@@ -6500,7 +6500,7 @@
 	/**
 	 * Disable debug output.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function disable() {
@@ -6512,7 +6512,7 @@
 	 *
 	 * @param {String} name
 	 * @return {Boolean}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function enabled(name) {
@@ -6568,7 +6568,7 @@
 	 * @param {String|Number} val
 	 * @param {Object} options
 	 * @return {String|Number}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	module.exports = function(val, options){
@@ -6708,7 +6708,7 @@
 	 * JSONP Polling constructor.
 	 *
 	 * @param {Object} opts.
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function JSONPPolling (opts) {
@@ -6933,7 +6933,7 @@
 	 * WebSocket transport constructor.
 	 *
 	 * @api {Object} connection options
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function WS(opts){
@@ -6953,7 +6953,7 @@
 	/**
 	 * Transport name.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	WS.prototype.name = 'websocket';
@@ -7137,7 +7137,7 @@
 	 * Feature detection for WebSocket.
 	 *
 	 * @return {Boolean} whether this transport is available.
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	WS.prototype.check = function(){
@@ -7178,7 +7178,7 @@
 	 * @param {String} uri
 	 * @param {Array} protocols (optional)
 	 * @param {Object) opts (optional)
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function ws(uri, protocols, opts) {
@@ -7344,7 +7344,7 @@
 	/**
 	 * `Socket` constructor.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function Socket(io, nsp){
@@ -7386,7 +7386,7 @@
 	/**
 	 * "Opens" the socket.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Socket.prototype.open =
@@ -7403,7 +7403,7 @@
 	 * Sends a `message` event.
 	 *
 	 * @return {Socket} self
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Socket.prototype.send = function(){
@@ -7419,7 +7419,7 @@
 	 *
 	 * @param {String} event name
 	 * @return {Socket} self
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Socket.prototype.emit = function(ev){
@@ -7662,7 +7662,7 @@
 	 * Disconnects the socket manually.
 	 *
 	 * @return {Socket} self
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Socket.prototype.close =
@@ -7719,7 +7719,7 @@
 	 * @param {Object|EventEmitter} obj with `Emitter` mixin or `EventEmitter`
 	 * @param {String} event name
 	 * @param {Function} callback
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function on(obj, ev, fn) {
@@ -7748,7 +7748,7 @@
 	 * @param {Object} obj
 	 * @param {Function|String} fn or string
 	 * @return {Function}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	module.exports = function(obj, fn){
@@ -7784,7 +7784,7 @@
 	 * Right now only Buffer and ArrayBuffer are supported..
 	 *
 	 * @param {Object} anything
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function hasBinary(data) {
@@ -7842,7 +7842,7 @@
 	 *
 	 * @param {Object} obj
 	 * @return {Array}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.keys = Object.keys || function(obj){
@@ -7860,7 +7860,7 @@
 	 *
 	 * @param {Object} obj
 	 * @return {Array}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.values = function(obj){
@@ -7879,7 +7879,7 @@
 	 * @param {Object} a
 	 * @param {Object} b
 	 * @return {Object} a
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.merge = function(a, b){
@@ -7896,7 +7896,7 @@
 	 *
 	 * @param {Object} obj
 	 * @return {Number}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.length = function(obj){
@@ -7908,7 +7908,7 @@
 	 *
 	 * @param {Object} obj
 	 * @return {Boolean}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	exports.isEmpty = function(obj){
@@ -7935,7 +7935,7 @@
 	 * - `factor` [2]
 	 *
 	 * @param {Object} opts
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	function Backoff(opts) {
@@ -7951,7 +7951,7 @@
 	 * Return the backoff duration.
 	 *
 	 * @return {Number}
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Backoff.prototype.duration = function(){
@@ -7967,7 +7967,7 @@
 	/**
 	 * Reset the number of attempts.
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Backoff.prototype.reset = function(){
@@ -7977,7 +7977,7 @@
 	/**
 	 * Set the minimum duration
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Backoff.prototype.setMin = function(min){
@@ -7987,7 +7987,7 @@
 	/**
 	 * Set the maximum duration
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Backoff.prototype.setMax = function(max){
@@ -7997,7 +7997,7 @@
 	/**
 	 * Set the jitter
 	 *
-	 * @api public
+	 * @api .well-known
 	 */
 	
 	Backoff.prototype.setJitter = function(jitter){

@@ -2,33 +2,28 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 var open = require('open');
-var options = {
-    key: fs.readFileSync('./fake-keys/privatekey.pem'),
-    cert: fs.readFileSync('./fake-keys/certificate.pem')
-};
-var serverPort = (process.env.PORT  || 4443);
+var path = require('path')
+
+var ssl = {
+    key: fs.readFileSync('/etc/letsencrypt/live/liive.io/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/liive.io/fullchain.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/liive.io/chain.pem')
+}
+var serverPort1 = (process.env.PORT  || 4443);
+var serverPort2 = 8080
+var serverPort3 = 8443
+
 var https = require('https');
 var http = require('http');
-var server;
-if (process.env.LOCAL) {
-    server = https.createServer(options, app);
-} else {
-    server = http.createServer(app);
-}
-var io = require('socket.io')(server);
+var server1, server2, server3;
+
+server1 = https.createServer(ssl, app);
+server2 = http.createServer(app);
+server3 = https.createServer(ssl, app);
+
+var io = require('socket.io')(server1);
 
 var roomList = {};
-
-app.get('/', function(req, res){
-    console.log('get /');
-    res.sendFile(__dirname + '/index.html');
-});
-server.listen(serverPort, function(){
-    console.log('server up and running at %s port', serverPort);
-    if (process.env.LOCAL) {
-        open('https://localhost:' + serverPort)
-    }
-});
 
 function socketIdsInRoom(name) {
     var socketIds = io.nsps['/'].adapter.rooms[name];
@@ -70,3 +65,31 @@ io.on('connection', function(socket){
         to.emit('exchange', data);
     });
 });
+
+app.use('/.well-known', express.static(path.join(__dirname, '.well-known')))
+
+app.get('/', function(req, res){
+    console.log('get /');
+    res.sendFile(__dirname + '/index.html');
+});
+server1.listen(serverPort1, function(){
+    console.log('server up and running at %s port', serverPort1);
+    if (process.env.LOCAL) {
+        open('https://liive.io:' + serverPort1)
+    }
+});
+
+server2.listen(serverPort2, function(){
+    console.log('server up and running at %s port', serverPort2);
+    if (process.env.LOCAL) {
+        open('http://liive.io/.well-known/thing.txt')
+    }
+});
+
+server3.listen(serverPort3, function(){
+    console.log('server up and running at %s port', serverPort3);
+    if (process.env.LOCAL) {
+        open('https://liive.io/.well-known/thing.txt')
+    }
+});
+

@@ -18,7 +18,7 @@ module.exports = exports = Socket;
 /**
  * Blacklisted events.
  *
- * @api public
+ * @api .well-known
  */
 
 exports.events = [
@@ -52,7 +52,7 @@ var emit = Emitter.prototype.emit;
  *
  * @param {Namespace} nsp
  * @param {Client} client
- * @api public
+ * @api .well-known
  */
 
 function Socket(nsp, client){
@@ -90,7 +90,7 @@ flags.forEach(function(flag){
 /**
  * `request` engine.io shortcut.
  *
- * @api public
+ * @api .well-known
  */
 
 Socket.prototype.__defineGetter__('request', function(){
@@ -120,7 +120,7 @@ Socket.prototype.buildHandshake = function(){
  * Emits to this client.
  *
  * @return {Socket} self
- * @api public
+ * @api .well-known
  */
 
 Socket.prototype.emit = function(ev){
@@ -170,7 +170,7 @@ Socket.prototype.emit = function(ev){
  *
  * @param {String} name
  * @return {Socket} self
- * @api public
+ * @api .well-known
  */
 
 Socket.prototype.to =
@@ -184,7 +184,7 @@ Socket.prototype.in = function(name){
  * Sends a `message` event.
  *
  * @return {Socket} self
- * @api public
+ * @api .well-known
  */
 
 Socket.prototype.send =
@@ -441,7 +441,7 @@ Socket.prototype.error = function(err){
  *
  * @param {Boolean} close if `true`, closes the underlying connection
  * @return {Socket} self
- * @api public
+ * @api .well-known
  */
 
 Socket.prototype.disconnect = function(close){
@@ -460,7 +460,7 @@ Socket.prototype.disconnect = function(close){
  *
  * @param {Boolean} compress if `true`, compresses the sending data
  * @return {Socket} self
- * @api public
+ * @api .well-known
  */
 
 Socket.prototype.compress = function(compress){

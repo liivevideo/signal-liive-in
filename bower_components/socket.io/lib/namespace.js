@@ -92,7 +92,7 @@ Namespace.prototype.initAdapter = function(){
  * Sets up namespace middleware.
  *
  * @return {Namespace} self
- * @api public
+ * @api .well-known
  */
 
 Namespace.prototype.use = function(fn){
@@ -133,7 +133,7 @@ Namespace.prototype.run = function(socket, fn){
  *
  * @param {String} name
  * @return {Namespace} self
- * @api public
+ * @api .well-known
  */
 
 Namespace.prototype.to =
@@ -198,7 +198,7 @@ Namespace.prototype.remove = function(socket){
  * Emits to all clients.
  *
  * @return {Namespace} self
- * @api public
+ * @api .well-known
  */
 
 Namespace.prototype.emit = function(ev){
@@ -231,7 +231,7 @@ Namespace.prototype.emit = function(ev){
  * Sends a `message` event to all clients.
  *
  * @return {Namespace} self
- * @api public
+ * @api .well-known
  */
 
 Namespace.prototype.send =
@@ -246,7 +246,7 @@ Namespace.prototype.write = function(){
  * Gets a list of clients.
  *
  * @return {Namespace} self
- * @api public
+ * @api .well-known
  */
 
 Namespace.prototype.clients = function(fn){
@@ -262,7 +262,7 @@ Namespace.prototype.clients = function(fn){
  *
  * @param {Boolean} compress if `true`, compresses the sending data
  * @return {Socket} self
- * @api public
+ * @api .well-known
  */
 
 Namespace.prototype.compress = function(compress){

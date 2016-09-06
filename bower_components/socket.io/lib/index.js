@@ -31,7 +31,7 @@ var clientSource = read(require.resolve('socket.io-client/socket.io.js'), 'utf-8
  *
  * @param {http.Server|Number|Object} srv http server, port or options
  * @param {Object} opts
- * @api public
+ * @api .well-known
  */
 
 function Server(srv, opts){
@@ -88,7 +88,7 @@ Server.prototype.checkRequest = function(req, fn) {
  *
  * @param {Boolean} v whether to serve client code
  * @return {Server|Boolean} self when setting or value when getting
- * @api public
+ * @api .well-known
  */
 
 Server.prototype.serveClient = function(v){
@@ -111,7 +111,7 @@ var oldSettings = {
 /**
  * Backwards compatiblity.
  *
- * @api public
+ * @api .well-known
  */
 
 Server.prototype.set = function(key, val){
@@ -141,7 +141,7 @@ Server.prototype.set = function(key, val){
  *
  * @param {String} v pathname
  * @return {Server|String} self when setting or value when getting
- * @api public
+ * @api .well-known
  */
 
 Server.prototype.path = function(v){
@@ -155,7 +155,7 @@ Server.prototype.path = function(v){
  *
  * @param {Adapter} v pathname
  * @return {Server|Adapter} self when setting or value when getting
- * @api public
+ * @api .well-known
  */
 
 Server.prototype.adapter = function(v){
@@ -174,7 +174,7 @@ Server.prototype.adapter = function(v){
  *
  * @param {String} v origins
  * @return {Server|Adapter} self when setting or value when getting
- * @api public
+ * @api .well-known
  */
 
 Server.prototype.origins = function(v){
@@ -190,7 +190,7 @@ Server.prototype.origins = function(v){
  * @param {http.Server|Number} server or port
  * @param {Object} options passed to engine.io
  * @return {Server} self
- * @api public
+ * @api .well-known
  */
 
 Server.prototype.listen =
@@ -294,7 +294,7 @@ Server.prototype.serve = function(req, res){
  *
  * @param {engine.Server} engine engine.io (or compatible) server
  * @return {Server} self
- * @api public
+ * @api .well-known
  */
 
 Server.prototype.bind = function(engine){
@@ -308,7 +308,7 @@ Server.prototype.bind = function(engine){
  *
  * @param {engine.Socket} conn
  * @return {Server} self
- * @api public
+ * @api .well-known
  */
 
 Server.prototype.onconnection = function(conn){
@@ -323,7 +323,7 @@ Server.prototype.onconnection = function(conn){
  *
  * @param {String} name nsp name
  * @param {Function} fn optional, nsp `connection` ev handler
- * @api public
+ * @api .well-known
  */
 
 Server.prototype.of = function(name, fn){
@@ -342,7 +342,7 @@ Server.prototype.of = function(name, fn){
 /**
  * Closes server connection
  *
- * @api public
+ * @api .well-known
  */
 
 Server.prototype.close = function(){
