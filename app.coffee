@@ -4,10 +4,6 @@ fs = require('fs')
 open = require('open')
 path = require('path')
 
-serverPortHttp = (process.env.PORT || 80)
-http = require('http')
-serverHttp = http.createServer(app)
-
 options = {
   key: fs.readFileSync('/etc/letsencrypt/live/liive.io/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/liive.io/fullchain.pem'),
@@ -16,19 +12,27 @@ options = {
   rejectUnauthorized: false,
 }
 
-serverPortHttps = (process.env.PORT || 443)
+serverPortHttps = (process.env.PORT || 8443)
+serverPortHttp = 8080
 https = require('https')
+http = require('http')
 serverHttps = https.createServer(options, app)
-io = require('socket.io').listen(serverHttps)
+serverHttp = http.createServer(app)
+
+io = require('socket.io')(serverHttps)
+
+roomList = {}
 
 socketIdsInRoom = (name) ->
-  console.log("ids in room...")
+  console.log("ids in room..."+name)
   socketIds = io.nsps['/'].adapter.rooms[name]
+  console.log("sockets:"+JSON.stringify(socketIds))
   if (socketIds)
     collection = []
-    for key in socketIds
+    for key of socketIds
       collection.push(key)
 
+    console.log("ids: "+JSON.stringify(collection))
     return collection
   else
     return []
@@ -41,6 +45,7 @@ io.on('connection', (socket) ->
       room = socket.room
       io.to(room).emit('leave', socket.id)
       socket.leave(room)
+    return
   )
   socket.on('join', (name, callback) ->
     console.log('join', name)
@@ -48,12 +53,14 @@ io.on('connection', (socket) ->
     callback(socketIds)
     socket.join(name)
     socket.room = name
+    return
   )
   socket.on('exchange', (data) ->
     console.log('exchange', data)
     data.from = socket.id
     to = io.sockets.connected[data.to]
     to.emit('exchange', data)
+    return
   )
 )
 
@@ -64,9 +71,11 @@ serverHttps.listen(serverPortHttps, () ->
   console.log('server up and running at %s port', serverPortHttps)
   if (process.env.LOCAL)
     open('https://liive.io')
+  return
 )
 serverHttp.listen(serverPortHttp, () ->
   console.log('server up and running at %s port', serverPortHttp)
 #  if (process.env.LOCAL)
 #    open('http://liive.io/warning.html')
+  return
 )
