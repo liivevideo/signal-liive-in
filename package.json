@@ -12,6 +12,7 @@
     "logs": "heroku logs --tail",
     "deploy": "git push heroku master",
     "start": "LOCAL=TRUE node app.js",
+    "test": "./node_modules/.bin/_mocha"
   },
   "dependencies": {
     "body-parser": "^1.15.2",

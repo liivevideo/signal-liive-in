@@ -9,7 +9,7 @@ tap = require('gulp-tap')
 parallelize = require("concurrent-transform")
 
 threads = 100
-coffeeFiles = ['app/**/*.coffee', 'gulfile.coffee', 'app.coffee', 'routes/*.coffee', 'config.coffee']
+coffeeFiles = ['app/**/*.coffee','test/**/*.coffee','gulfile.coffee', 'app.coffee', 'routes/*.coffee', 'config.coffee']
 
 gulp.task('touch', () ->
     gulp.src(coffeeFiles)
