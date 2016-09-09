@@ -1,6 +1,6 @@
 env:
   global:
-    - APP_NAME=liive-api
+    - APP_NAME=signal.live.in
 
 language: node_js
 
