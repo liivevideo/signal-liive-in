@@ -11,7 +11,7 @@
     "open": "heroku open",
     "logs": "heroku logs --tail",
     "deploy": "git push heroku master",
-    "start": "LOCAL=TRUE node app.js",
+    "start": "node app.js",
     "test": "./node_modules/.bin/_mocha",
     "test-shippable": "mkdir -p shippable/testresults && mocha --reporter xunit ./test/*.js > shippable/testresults/result.xml",
     "test-coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -u tdd",
