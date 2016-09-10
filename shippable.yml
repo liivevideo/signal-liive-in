@@ -1,6 +1,7 @@
 env:
   global:
-    - APP_NAME=signal.live.in
+    - APP_PROD_NAME=signal.live.in-$BRANCH
+    - APP_DEV_NAME=signal.live.in-$BRANCH
 
 language: node_js
 
@@ -22,7 +23,8 @@ build:
     - npm run-script shippable-cobertura
 
   on_success:
-    - git push -f git@heroku.com:$APP_NAME-$BRANCH.git $BRANCH:master
+    - if [ "$BRANCH" == "master" ]; then git push -f git@heroku.com:$APP_PROD_NAME.git master:master; fi
+    - if [ "$BRANCH" == "develop" ]; then git push -f git@heroku.com:$APP_DEV_NAME.git develop:master; fi
 
   on_failure:
     - npm run-script test-shippable
