@@ -48,21 +48,21 @@
 
   app.use('/', routes);
 
-  https = require('https');
-
-  serverHttps = https.createServer(sslOptions, app);
-
-  serverHttps.listen(config.httpsPort, function() {
-    console.log("server running on port " + config.httpsPort);
-  });
-
   if (config.env === 'local') {
-    http = require('http');
-    serverHttp = http.createServer(app);
-    serverHttp.listen(config.httpPort, function() {
-      console.log("server running on port " + config.httpPort);
+    https = require('https');
+    serverHttps = https.createServer(sslOptions, app);
+    serverHttps.listen(config.httpsPort, function() {
+      console.log("server running on port " + config.httpsPort);
     });
   }
+
+  http = require('http');
+
+  serverHttp = http.createServer(app);
+
+  serverHttp.listen(config.httpPort, function() {
+    console.log("server running on port " + config.httpPort);
+  });
 
   io = require('socket.io')(serverHttps);
 

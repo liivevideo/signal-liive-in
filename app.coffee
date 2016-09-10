@@ -24,20 +24,20 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')))
 app.use('/', routes)
 
-https = require('https')
-serverHttps = https.createServer(sslOptions, app)
-serverHttps.listen(config.httpsPort, () ->
-  console.log("server running on port #{config.httpsPort}", )
-  return
-)
-
 if (config.env=='local')
-  http = require('http')
-  serverHttp = http.createServer(app)
-  serverHttp.listen(config.httpPort, () ->
-    console.log("server running on port #{config.httpPort}")
+  https = require('https')
+  serverHttps = https.createServer(sslOptions, app)
+  serverHttps.listen(config.httpsPort, () ->
+    console.log("server running on port #{config.httpsPort}", )
     return
   )
+
+http = require('http')
+serverHttp = http.createServer(app)
+serverHttp.listen(config.httpPort, () ->
+  console.log("server running on port #{config.httpPort}")
+  return
+)
 
 io = require('socket.io')(serverHttps)
 
