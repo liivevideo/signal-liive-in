@@ -1,9 +1,12 @@
 express = require('express')
 router = express.Router()
 
-# GET home page. */
-router.get('/', (req, res, next) ->
-  res.render('index', { title: 'Liive Video' })
-)
+module.exports = (config) ->
+  # GET home page. */
+  configStr = JSON.stringify(config)
+  router.get('/', (req, res, next) ->
+    res.render('index', { title: 'Liive Video', config:configStr })
+    return
+  )
+  return router
 
-module.exports = router

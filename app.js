@@ -18,7 +18,11 @@
 
   bodyParser = require('body-parser');
 
-  routes = require('./routes/index');
+  ref = require('./config'), config = ref[0], sslOptions = ref[1];
+
+  console.log("configuration: " + JSON.stringify(config, null, 4));
+
+  routes = require('./routes/index')(config);
 
   app.set('views', path.join(__dirname, 'views'));
 
@@ -43,10 +47,6 @@
   app.use('/.well-known', express["static"](path.join(__dirname, '.well-known')));
 
   app.use('/', routes);
-
-  ref = require('./config'), config = ref[0], sslOptions = ref[1];
-
-  console.log("configuration: " + JSON.stringify(config, null, 4));
 
   serverPortHttps = config.httpsPort;
 

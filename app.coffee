@@ -7,7 +7,10 @@ path = require('path')
 #logger = require('morgan')
 cookieParser = require('cookie-parser')
 bodyParser = require('body-parser')
-routes = require('./routes/index')
+[config, sslOptions] = require('./config')
+console.log("configuration: "+JSON.stringify(config, null, 4))
+
+routes = require('./routes/index')(config)
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
@@ -20,9 +23,6 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ppm')))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')))
 app.use('/', routes)
-
-[config, sslOptions] = require('./config')
-console.log("configuration: "+JSON.stringify(config, null, 4))
 
 serverPortHttps = config.httpsPort
 serverPortHttp = config.httpPort

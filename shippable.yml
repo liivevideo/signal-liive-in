@@ -22,7 +22,7 @@ build:
     - npm run-script shippable-cobertura
 
   on_success:
-    - git push -f git@heroku.com:$APP_NAME-$BRANCH.git master
+    - git push -f git@heroku.com:$APP_NAME-$BRANCH.git $BRANCH:master
 
   on_failure:
     - npm run-script test-shippable
