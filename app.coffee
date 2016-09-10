@@ -39,7 +39,7 @@ listenHttps = (config, sslOptions) ->
     console.log("server running on port #{config.httpsPort}", )
     return serverHttps
   )
-  
+
 if (config.env=='local')
   serverHttp = listenHttp(config)
   serverHttps = listenHttps(config, sslOptions)
