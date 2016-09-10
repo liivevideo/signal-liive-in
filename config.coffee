@@ -18,6 +18,7 @@ else
         env: process.env.NODE_ENV || 'develop'
         version: pjson.version
         httpsPort: process.env.PORT || '' # must be set.
+        httpPort: process.env.PORT || '' # must be set.
 
     sslOptions =
         key: process.env.KEY || ''

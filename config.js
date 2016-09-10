@@ -24,7 +24,8 @@
     config = {
       env: process.env.NODE_ENV || 'develop',
       version: pjson.version,
-      httpsPort: process.env.PORT || ''
+      httpsPort: process.env.PORT || '',
+      httpPort: process.env.PORT || ''
     };
     sslOptions = {
       key: process.env.KEY || '',
