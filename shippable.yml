@@ -2,6 +2,11 @@ env:
   global:
     - APP_NAME=signal.live.in
 
+integrations:
+  key:
+    - integrationName: HerokuSSHKey
+      type: ssh-key
+
 language: node_js
 
 node_js:
