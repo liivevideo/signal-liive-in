@@ -20,11 +20,14 @@ else
         httpsPort: process.env.PORT || '' # must be set.
         httpPort: process.env.PORT || '' # must be set.
 
-    sslOptions =
-        key: process.env.KEY || ''
-        cert: process.env.CERT || ''
-        ca: process.env.CA || ''
-        requestCert: false
-        rejectUnauthorized: false
+    if process.env.KEY and process.env.CERT and process.env.CA
+        sslOptions =
+            key: process.env.KEY || ''
+            cert: process.env.CERT || ''
+            ca: process.env.CA || ''
+            requestCert: false
+            rejectUnauthorized: false
+    else
+        sslOptions = null
 
 module.exports = [config, sslOptions]

@@ -27,13 +27,17 @@
       httpsPort: process.env.PORT || '',
       httpPort: process.env.PORT || ''
     };
-    sslOptions = {
-      key: process.env.KEY || '',
-      cert: process.env.CERT || '',
-      ca: process.env.CA || '',
-      requestCert: false,
-      rejectUnauthorized: false
-    };
+    if (process.env.KEY && process.env.CERT && process.env.CA) {
+      sslOptions = {
+        key: process.env.KEY || '',
+        cert: process.env.CERT || '',
+        ca: process.env.CA || '',
+        requestCert: false,
+        rejectUnauthorized: false
+      };
+    } else {
+      sslOptions = null;
+    }
   }
 
   module.exports = [config, sslOptions];
