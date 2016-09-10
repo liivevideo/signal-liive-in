@@ -9,6 +9,9 @@
   describe('Configuration', function() {
     return it('configures the application correctly.', function(done) {
       var config, ref, sslOptions;
+      process.env.KEY = "KEY";
+      process.env.CERT = "CERT";
+      process.env.CA = "CA";
       ref = require('../config'), config = ref[0], sslOptions = ref[1];
       config.env.should.be.equal('local');
       return done();
