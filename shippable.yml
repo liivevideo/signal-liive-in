@@ -2,11 +2,6 @@ env:
   global:
     - APP_NAME=signal.live.in
 
-integrations:
-  key:
-    - integrationName: HerokuSSHKey
-      type: ssh-key
-
 language: node_js
 
 node_js:
@@ -35,6 +30,10 @@ build:
     - npm run-script shippable-cobertura
 
 integrations:
+  key:
+    - integrationName: HerokuSSHKey
+    - type: ssh-key
+
   notifications:
     - integrationName: CINotification
       type: slack
