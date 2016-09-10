@@ -1,6 +1,6 @@
 {
   "name": "signal.liive.in",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Signal server for liive.in",
   "main": "app.js",
   "author": "Robb Lovell",
