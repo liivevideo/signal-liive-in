@@ -24,12 +24,30 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')))
 app.use('/', routes)
 
-serverPortHttps = config.httpsPort
-serverPortHttp = config.httpPort
-https = require('https')
-http = require('http')
-serverHttps = https.createServer(sslOptions, app)
-serverHttp = http.createServer(app)
+
+listenHttp = (config) ->
+  http = require('http')
+  serverHttp = http.createServer(app)
+  serverHttp.listen(config.httpPort, () ->
+    console.log("server running on port #{config.httpPort}")
+    return serverHttp
+  )
+listenHttps = (config, sslOptions) ->
+  https = require('https')
+  serverHttps = https.createServer(sslOptions, app)
+  serverHttps.listen(config.httpsPort, () ->
+    console.log("server running on port #{config.httpsPort}", )
+    return serverHttps
+  )
+
+if (config.env=='local')
+  serverHttp = listenHttp(config)
+  serverHttps = listenHttps(config, sslOptions)
+else
+  if sslOptions?
+    serverHttps = listenHttps(config, sslOptions)
+  else
+    serverHttp = listenHttp(config)
 
 io = require('socket.io')(serverHttps)
 
@@ -74,11 +92,4 @@ io.on('connection', (socket) ->
   )
 )
 
-serverHttps.listen(serverPortHttps, () ->
-#  console.log('server up and running at %s port', serverPortHttps)
-  return
-)
-serverHttp.listen(serverPortHttp, () ->
-#  console.log('server up and running at %s port', serverPortHttp)
-  return
-)
+
