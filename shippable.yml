@@ -32,7 +32,7 @@ build:
 integrations:
   key:
     - integrationName: HerokuSSHKey
-    - type: ssh-key
+      type: ssh-key
 
   notifications:
     - integrationName: CINotification
