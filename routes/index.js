@@ -10,6 +10,11 @@
     var configStr;
     configStr = JSON.stringify(config);
     router.get('/', function(req, res, next) {
+      if (req.secure) {
+        console.log("SSL REQUEST:");
+      } else {
+        console.log("NON-SSL REQUEST");
+      }
       res.render('index', {
         title: 'Liive Video',
         config: configStr
