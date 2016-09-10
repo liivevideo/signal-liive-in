@@ -6,13 +6,17 @@
 
   router = express.Router();
 
-  router.get('/', function(req, res, next) {
-    return res.render('index', {
-      title: 'Liive Video'
+  module.exports = function(config) {
+    var configStr;
+    configStr = JSON.stringify(config);
+    router.get('/', function(req, res, next) {
+      res.render('index', {
+        title: 'Liive Video',
+        config: configStr
+      });
     });
-  });
-
-  module.exports = router;
+    return router;
+  };
 
 }).call(this);
 

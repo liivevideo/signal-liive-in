@@ -20,7 +20,7 @@
 
   threads = 100;
 
-  coffeeFiles = ['app/**/*.coffee', 'gulfile.coffee', 'app.coffee', 'routes/*.coffee', 'config.coffee'];
+  coffeeFiles = ['app/**/*.coffee', 'test/**/*.coffee', 'gulfile.coffee', 'app.coffee', 'routes/*.coffee', 'config.coffee'];
 
   gulp.task('touch', function() {
     return gulp.src(coffeeFiles).pipe(tap(function(file, t) {
