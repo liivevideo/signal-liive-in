@@ -44,3 +44,4 @@ shippable
 .DS_Store
 
 commit_images
+public/build

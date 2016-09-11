@@ -9,9 +9,9 @@
   if ((process.env.NODE_ENV == null) || process.env.NODE_ENV === 'local') {
     config = {
       env: 'local',
-      version: pjson.version,
       httpsPort: process.env.HTTPSPORT || '8443',
-      httpPort: process.env.HTTPPORT || '8080'
+      httpPort: process.env.HTTPPORT || '8080',
+      cdn: '/build/bundle.js'
     };
     sslOptions = {
       key: process.env.KEY || fs.readFileSync('/etc/letsencrypt/live/liive.io/privkey.pem'),
@@ -20,25 +20,26 @@
       requestCert: false,
       rejectUnauthorized: false
     };
+  } else if (process.env.HEROKU != null) {
+    config = {
+      env: process.env.NODE_ENV || 'develop',
+      httpPort: process.env.PORT || '',
+      cdn: '/build/bundle.js'
+    };
+    sslOptions = null;
   } else {
     config = {
       env: process.env.NODE_ENV || 'develop',
-      version: pjson.version,
-      httpsPort: process.env.PORT || '',
-      httpPort: process.env.PORT || ''
+      httpPort: process.env.OPENSHIFT_NODEJS_PORT || '',
+      httpIp: process.env.OPENSHIFT_NODEJS_IP,
+      cdn: '/build/bundle.js'
     };
-    if (process.env.KEY && process.env.CERT && process.env.CA) {
-      sslOptions = {
-        key: process.env.KEY || '',
-        cert: process.env.CERT || '',
-        ca: process.env.CA || '',
-        requestCert: false,
-        rejectUnauthorized: false
-      };
-    } else {
-      sslOptions = null;
-    }
+    sslOptions = null;
   }
+
+  config.title = pjson.title;
+
+  config.version = pjson.version;
 
   module.exports = [config, sslOptions];
 
