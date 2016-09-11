@@ -22,7 +22,7 @@
 
   console.log("configuration: " + JSON.stringify(config, null, 4));
 
-  routes = require('./routes/index')(config);
+  routes = require('./routes/index')(express, config);
 
   app.set('views', path.join(__dirname, 'views'));
 
@@ -42,9 +42,9 @@
 
   app.use(favicon(path.join(__dirname, 'public', 'favicon.ppm')));
 
-  app.use(express["static"](path.join(__dirname, 'public')));
-
   app.use('/.well-known', express["static"](path.join(__dirname, '.well-known')));
+
+  app.use(express["static"](path.join(__dirname, 'public')));
 
   app.use('/', routes);
 
@@ -52,10 +52,17 @@
     var http, serverHttp;
     http = require('http');
     serverHttp = http.createServer(app);
-    return serverHttp.listen(config.httpPort, function() {
-      console.log("server running on port " + config.httpPort);
-      return serverHttp;
-    });
+    if (config.httpIp) {
+      return serverHttp.listen(config.httpPort, config.httpIp, function() {
+        console.log("Secure SSL (HTTPS) server running on address " + config.httpIp + ":" + config.httpPort);
+        return serverHttp;
+      });
+    } else {
+      return serverHttp.listen(config.httpPort, function() {
+        console.log("Secure SSL (HTTPS) server running on port " + config.httpPort);
+        return serverHttp;
+      });
+    }
   };
 
   listenHttps = function(config, sslOptions) {
@@ -63,7 +70,7 @@
     https = require('https');
     serverHttps = https.createServer(sslOptions, app);
     return serverHttps.listen(config.httpsPort, function() {
-      console.log("server running on port " + config.httpsPort);
+      console.log("HTTP server running on port " + config.httpsPort);
       return serverHttps;
     });
   };
@@ -71,12 +78,14 @@
   if (config.env === 'local') {
     serverHttp = listenHttp(config);
     serverHttps = listenHttps(config, sslOptions);
-  } else {
+  } else if ((config.heroku != null)) {
     if (sslOptions != null) {
       serverHttps = listenHttps(config, sslOptions);
     } else {
       serverHttp = listenHttp(config);
     }
+  } else {
+    serverHttp = listenHttp(config);
   }
 
   io = require('socket.io')(serverHttps);
