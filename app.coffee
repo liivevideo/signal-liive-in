@@ -10,7 +10,7 @@ bodyParser = require('body-parser')
 [config, sslOptions] = require('./config')
 console.log("configuration: "+JSON.stringify(config, null, 4))
 
-routes = require('./routes/index')(config)
+routes = require('./routes/index')(express, config)
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
@@ -20,8 +20,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(require('stylus').middleware(path.join(__dirname, 'public')))
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ppm')))
+app.use('/.well-known', express.static(path.join(__dirname, '.well-known'))) # lets encrypt cert verification.
 app.use(express.static(path.join(__dirname, 'public')))
-app.use('/.well-known', express.static(path.join(__dirname, '.well-known')))
 app.use('/', routes)
 
 listenHttp = (config) ->

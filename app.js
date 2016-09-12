@@ -22,7 +22,7 @@
 
   console.log("configuration: " + JSON.stringify(config, null, 4));
 
-  routes = require('./routes/index')(config);
+  routes = require('./routes/index')(express, config);
 
   app.set('views', path.join(__dirname, 'views'));
 
@@ -42,9 +42,9 @@
 
   app.use(favicon(path.join(__dirname, 'public', 'favicon.ppm')));
 
-  app.use(express["static"](path.join(__dirname, 'public')));
-
   app.use('/.well-known', express["static"](path.join(__dirname, '.well-known')));
+
+  app.use(express["static"](path.join(__dirname, 'public')));
 
   app.use('/', routes);
 
