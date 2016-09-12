@@ -24,30 +24,37 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')))
 app.use('/', routes)
 
-
 listenHttp = (config) ->
   http = require('http')
   serverHttp = http.createServer(app)
-  serverHttp.listen(config.httpPort, () ->
-    console.log("server running on port #{config.httpPort}")
-    return serverHttp
-  )
+  if config.httpIp
+    serverHttp.listen(config.httpPort, config.httpIp, () ->
+      console.log("Secure SSL (HTTPS) server running on address #{config.httpIp}:#{config.httpPort}")
+      return serverHttp
+    )
+  else
+    serverHttp.listen(config.httpPort, () ->
+      console.log("Secure SSL (HTTPS) server running on port #{config.httpPort}")
+      return serverHttp
+    )
 listenHttps = (config, sslOptions) ->
   https = require('https')
   serverHttps = https.createServer(sslOptions, app)
   serverHttps.listen(config.httpsPort, () ->
-    console.log("server running on port #{config.httpsPort}", )
+    console.log("HTTP server running on port #{config.httpsPort}", )
     return serverHttps
   )
 
 if (config.env=='local')
   serverHttp = listenHttp(config)
   serverHttps = listenHttps(config, sslOptions)
-else
+else if (config.heroku?)
   if sslOptions?
     serverHttps = listenHttps(config, sslOptions)
   else
     serverHttp = listenHttp(config)
+else
+  serverHttp = listenHttp(config)
 
 io = require('socket.io')(serverHttps)
 

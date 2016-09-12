@@ -20,24 +20,20 @@
       requestCert: false,
       rejectUnauthorized: false
     };
+  } else if (process.env.HEROKU != null) {
+    config = {
+      env: process.env.NODE_ENV || 'develop',
+      version: pjson.version,
+      httpPort: process.env.PORT || ''
+    };
+    sslOptions = null;
   } else {
     config = {
       env: process.env.NODE_ENV || 'develop',
       version: pjson.version,
-      httpsPort: process.env.PORT || '',
-      httpPort: process.env.PORT || ''
+      httpPort: process.env.OPENSHIFT_NODEJS_PORT || '',
+      httpIp: process.env.OPENSHIFT_NODEJS_IP
     };
-    if (process.env.KEY && process.env.CERT && process.env.CA) {
-      sslOptions = {
-        key: process.env.KEY || '',
-        cert: process.env.CERT || '',
-        ca: process.env.CA || '',
-        requestCert: false,
-        rejectUnauthorized: false
-      };
-    } else {
-      sslOptions = null;
-    }
   }
 
   module.exports = [config, sslOptions];

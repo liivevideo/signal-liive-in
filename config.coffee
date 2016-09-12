@@ -13,21 +13,16 @@ if !process.env.NODE_ENV? or process.env.NODE_ENV == 'local'
         ca: process.env.CA || fs.readFileSync('/etc/letsencrypt/live/liive.io/chain.pem')
         requestCert: false
         rejectUnauthorized: false
+else if process.env.HEROKU?
+    config =
+        env: process.env.NODE_ENV || 'develop'
+        version: pjson.version
+        httpPort: process.env.PORT || '' # must be set.
+    sslOptions = null
 else
     config =
         env: process.env.NODE_ENV || 'develop'
         version: pjson.version
-        httpsPort: process.env.PORT || '' # must be set.
-        httpPort: process.env.PORT || '' # must be set.
-
-    if process.env.KEY and process.env.CERT and process.env.CA
-        sslOptions =
-            key: process.env.KEY || ''
-            cert: process.env.CERT || ''
-            ca: process.env.CA || ''
-            requestCert: false
-            rejectUnauthorized: false
-    else
-        sslOptions = null
-
+        httpPort: process.env.OPENSHIFT_NODEJS_PORT || '' # must be set.
+        httpIp: process.env.OPENSHIFT_NODEJS_IP
 module.exports = [config, sslOptions]
