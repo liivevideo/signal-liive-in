@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f5e48e1bb2c26dd50865"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1dc006d30cc28534bed9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -22190,7 +22190,7 @@
 	var configuration={
 	iceServers:[{"url":"stun:stun.l.google.com:19302"}],
 	io:_socket2.default,
-	signalServer:"https://liive.io",
+	signalServer:"https://liive.in",
 	RTCSessionDescription:_reactNativeWebrtc.RTCSessionDescription,
 	RTCPeerConnection:_reactNativeWebrtc.RTCPeerConnection,
 	RTCIceCandidate:_reactNativeWebrtc.RTCIceCandidate,
