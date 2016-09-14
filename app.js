@@ -81,11 +81,14 @@
   } else if ((config.heroku != null)) {
     if (sslOptions != null) {
       serverHttps = listenHttps(config, sslOptions);
+      serverHttp = serverHttps;
     } else {
       serverHttp = listenHttp(config);
+      serverHttps = serverHttp;
     }
   } else {
     serverHttp = listenHttp(config);
+    serverHttps = serverHttp;
   }
 
   io = require('socket.io')(serverHttps);

@@ -14,9 +14,9 @@
       cdn: '/build/bundle.js'
     };
     sslOptions = {
-      key: process.env.KEY || fs.readFileSync('/etc/letsencrypt/live/liive.io/privkey.pem'),
-      cert: process.env.CERT || fs.readFileSync('/etc/letsencrypt/live/liive.io/fullchain.pem'),
-      ca: process.env.CA || fs.readFileSync('/etc/letsencrypt/live/liive.io/chain.pem'),
+      key: process.env.KEY || fs.readFileSync('/etc/letsencrypt/live/liive.in/privkey.pem'),
+      cert: process.env.CERT || fs.readFileSync('/etc/letsencrypt/live/liive.in/fullchain.pem'),
+      ca: process.env.CA || fs.readFileSync('/etc/letsencrypt/live/liive.in/chain.pem'),
       requestCert: false,
       rejectUnauthorized: false
     };
