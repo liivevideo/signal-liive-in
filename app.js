@@ -78,14 +78,12 @@
   if (config.env === 'local') {
     serverHttp = listenHttp(config);
     serverHttps = listenHttps(config, sslOptions);
-  } else if ((config.heroku != null)) {
+  } else {
     if (sslOptions != null) {
       serverHttps = listenHttps(config, sslOptions);
     } else {
       serverHttp = listenHttp(config);
     }
-  } else {
-    serverHttp = listenHttp(config);
   }
 
   io = require('socket.io')(serverHttps);

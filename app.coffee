@@ -48,13 +48,11 @@ listenHttps = (config, sslOptions) ->
 if (config.env=='local')
   serverHttp = listenHttp(config)
   serverHttps = listenHttps(config, sslOptions)
-else if (config.heroku?)
+else
   if sslOptions?
     serverHttps = listenHttps(config, sslOptions)
   else
     serverHttp = listenHttp(config)
-else
-  serverHttp = listenHttp(config)
 
 io = require('socket.io')(serverHttps)
 
