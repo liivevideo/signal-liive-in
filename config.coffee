@@ -19,8 +19,19 @@ else if process.env.HEROKU?
         env: process.env.NODE_ENV || 'develop'
         httpPort: process.env.PORT || '' # must be set.
         cdn: '/build/bundle.js'      # todo:: setup cloudflare cdn.
+        heroku: true
 
     sslOptions = null
+    if process.env.KEY? and process.env.CERT? and process.env.CA?
+        sslOptions =
+            key: process.env.KEY
+            cert: process.env.CERT
+            ca: process.env.CA
+            requestCert: false
+            rejectUnauthorized: false
+        config.httpsPort = process.env.PORT || '' # must be set.
+
+
 else # default deployment : OpenShift?
     config =
         env: process.env.NODE_ENV || 'develop'
@@ -29,6 +40,14 @@ else # default deployment : OpenShift?
         cdn: '/build/bundle.js'      # todo:: setup cloudflare cdn.
 
     sslOptions = null
+    if process.env.KEY? and process.env.CERT? and process.env.CA?
+        sslOptions =
+            key: process.env.KEY
+            cert: process.env.CERT
+            ca: process.env.CA
+            requestCert: false
+            rejectUnauthorized: false
+        config.httpsPort = process.env.PORT || '' # must be set.
 
 config.title = pjson.title
 config.version = pjson.version
