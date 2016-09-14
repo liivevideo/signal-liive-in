@@ -20,12 +20,12 @@
       requestCert: false,
       rejectUnauthorized: false
     };
-  } else if (process.env.HEROKU != null) {
+  } else if (process.env.OPENSHIFT != null) {
     config = {
       env: process.env.NODE_ENV || 'develop',
-      httpPort: process.env.PORT || '',
-      cdn: '/build/bundle.js',
-      heroku: true
+      httpPort: process.env.OPENSHIFT_NODEJS_PORT || '',
+      httpIp: process.env.OPENSHIFT_NODEJS_IP,
+      cdn: '/build/bundle.js'
     };
     sslOptions = null;
     if ((process.env.KEY != null) && (process.env.CERT != null) && (process.env.CA != null)) {
@@ -41,9 +41,9 @@
   } else {
     config = {
       env: process.env.NODE_ENV || 'develop',
-      httpPort: process.env.OPENSHIFT_NODEJS_PORT || '',
-      httpIp: process.env.OPENSHIFT_NODEJS_IP,
-      cdn: '/build/bundle.js'
+      httpPort: process.env.PORT || '',
+      cdn: '/build/bundle.js',
+      heroku: true
     };
     sslOptions = null;
     if ((process.env.KEY != null) && (process.env.CERT != null) && (process.env.CA != null)) {
