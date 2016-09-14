@@ -18,7 +18,7 @@ build:
     - npm run-script shippable-cobertura
 
   on_success:
-    - if [ "$BRANCH" == "master" ]; git push heroku master:master; fi
+    - if [ "$BRANCH" == "master" ]; then git push heroku master:master; fi
 
   on_failure:
     - npm run-script test-shippable
