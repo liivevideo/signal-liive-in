@@ -47,6 +47,6 @@ else  # default deployment :Heroku for now.
             rejectUnauthorized: false
         config.httpsPort = process.env.PORT || '' # must be set.
 config.title = pjson.title
-config.version = pjson.version
+config.version = pjson.version+".3"
 
 module.exports = [config, sslOptions]

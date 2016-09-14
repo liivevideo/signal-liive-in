@@ -60,7 +60,7 @@
 
   config.title = pjson.title;
 
-  config.version = pjson.version;
+  config.version = pjson.version + ".3";
 
   module.exports = [config, sslOptions];
 
