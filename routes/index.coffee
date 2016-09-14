@@ -5,7 +5,7 @@ module.exports = (express, config) ->
   configStr = JSON.stringify(config)
   
   router.get('/', (req, res, next) ->
-    if req.secure
+    if req.secure || config.heroku?
       console.log("SSL REQUEST:")
       res.render('index', { title: config.title, source: config.cdn, config: configStr })
     else

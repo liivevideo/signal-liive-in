@@ -5,7 +5,7 @@
     router = express.Router();
     configStr = JSON.stringify(config);
     router.get('/', function(req, res, next) {
-      if (req.secure) {
+      if (req.secure || (config.heroku != null)) {
         console.log("SSL REQUEST:");
         res.render('index', {
           title: config.title,
