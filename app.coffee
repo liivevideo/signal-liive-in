@@ -48,24 +48,29 @@ listenHttps = (config, sslOptions) ->
 if (config.env=='local')
   serverHttp = listenHttp(config)
   serverHttps = listenHttps(config, sslOptions)
-else
+else if (config.heroku?)
   if sslOptions?
     serverHttps = listenHttps(config, sslOptions)
+    serverHttp = serverHttps
   else
     serverHttp = listenHttp(config)
+    serverHttps = serverHttp
+else
+  serverHttp = listenHttp(config)
+  serverHttps = serverHttp
 
 io = require('socket.io')(serverHttps)
 
 socketIdsInRoom = (name) ->
 #  console.log("ids in room..."+name)
   socketIds = io.nsps['/'].adapter.rooms[name]
-#  console.log("sockets:"+JSON.stringify(socketIds))
+  #  console.log("sockets:"+JSON.stringify(socketIds))
   if (socketIds)
     collection = []
     for key of socketIds
       collection.push(key)
 
-#    console.log("ids: "+JSON.stringify(collection))
+    #    console.log("ids: "+JSON.stringify(collection))
     return collection
   else
     return []
