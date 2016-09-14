@@ -9,32 +9,58 @@
   if ((process.env.NODE_ENV == null) || process.env.NODE_ENV === 'local') {
     config = {
       env: 'local',
-      version: pjson.version,
       httpsPort: process.env.HTTPSPORT || '8443',
-      httpPort: process.env.HTTPPORT || '8080'
+      httpPort: process.env.HTTPPORT || '8080',
+      cdn: '/build/bundle.js'
     };
     sslOptions = {
-      key: process.env.KEY || fs.readFileSync('/etc/letsencrypt/live/liive.io/privkey.pem'),
-      cert: process.env.CERT || fs.readFileSync('/etc/letsencrypt/live/liive.io/fullchain.pem'),
-      ca: process.env.CA || fs.readFileSync('/etc/letsencrypt/live/liive.io/chain.pem'),
+      key: process.env.KEY || fs.readFileSync('/etc/letsencrypt/live/liive.in/privkey.pem'),
+      cert: process.env.CERT || fs.readFileSync('/etc/letsencrypt/live/liive.in/fullchain.pem'),
+      ca: process.env.CA || fs.readFileSync('/etc/letsencrypt/live/liive.in/chain.pem'),
       requestCert: false,
       rejectUnauthorized: false
     };
-  } else if (process.env.HEROKU != null) {
+  } else if (process.env.OPENSHIFT != null) {
     config = {
       env: process.env.NODE_ENV || 'develop',
-      version: pjson.version,
-      httpPort: process.env.PORT || ''
+      httpPort: process.env.OPENSHIFT_NODEJS_PORT || '',
+      httpIp: process.env.OPENSHIFT_NODEJS_IP,
+      cdn: '/build/bundle.js'
     };
     sslOptions = null;
+    if ((process.env.KEY != null) && (process.env.CERT != null) && (process.env.CA != null)) {
+      sslOptions = {
+        key: process.env.KEY,
+        cert: process.env.CERT,
+        ca: process.env.CA,
+        requestCert: false,
+        rejectUnauthorized: false
+      };
+      config.httpsPort = process.env.PORT || '';
+    }
   } else {
     config = {
       env: process.env.NODE_ENV || 'develop',
-      version: pjson.version,
-      httpPort: process.env.OPENSHIFT_NODEJS_PORT || '',
-      httpIp: process.env.OPENSHIFT_NODEJS_IP
+      httpPort: process.env.PORT || '',
+      cdn: '/build/bundle.js',
+      heroku: true
     };
+    sslOptions = null;
+    if ((process.env.KEY != null) && (process.env.CERT != null) && (process.env.CA != null)) {
+      sslOptions = {
+        key: process.env.KEY,
+        cert: process.env.CERT,
+        ca: process.env.CA,
+        requestCert: false,
+        rejectUnauthorized: false
+      };
+      config.httpsPort = process.env.PORT || '';
+    }
   }
+
+  config.title = pjson.title;
+
+  config.version = pjson.version;
 
   module.exports = [config, sslOptions];
 
