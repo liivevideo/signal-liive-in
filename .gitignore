@@ -44,3 +44,5 @@ shippable
 .DS_Store
 
 commit_images
+**/bundle.js
+**/bundle.js.map
