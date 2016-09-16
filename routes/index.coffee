@@ -7,7 +7,7 @@ module.exports = (express, config) ->
   router.get('/', (req, res, next) ->
     console.log("request:" + JSON.stringify(req.headers))
 
-    if req.secure and (req.headers['X-Forwarded-Proto'] is 'https' or config.env is 'local')
+    if req.secure and (req.headers['x-forwarded-proto'] is 'https' or config.env is 'local')
       console.log("SSL REQUEST:")
       res.render('index', { title: config.title, source: config.cdn, config: configStr })
     else
