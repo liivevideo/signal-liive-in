@@ -5,6 +5,7 @@
     router = express.Router();
     configStr = JSON.stringify(config);
     router.get('/', function(req, res, next) {
+      console.log("request:" + JSON.stringify(req.headers));
       if (req.secure && (req.headers['X-Forwarded-Proto'] === 'https' || config.env === 'local')) {
         console.log("SSL REQUEST:");
         res.render('index', {
