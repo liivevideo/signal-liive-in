@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "653ecd6f6cd45c749a37"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "57c41496aee0e85eda45"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -22196,7 +22196,8 @@
 	RTCSessionDescription:_reactNativeWebrtc.RTCSessionDescription,
 	RTCPeerConnection:_reactNativeWebrtc.RTCPeerConnection,
 	RTCIceCandidate:_reactNativeWebrtc.RTCIceCandidate,
-	getUserMedia:_reactNativeWebrtc.getUserMedia};
+	getUserMedia:_reactNativeWebrtc.getUserMedia,
+	mediaConstraints:{audio:true,video:{facingMode:"user"}}};
 	
 	
 	
@@ -22271,19 +22272,19 @@
 	},
 	_renderTextRoom:function _renderTextRoom(){var _this=this;
 	return(
-	_react2.default.createElement(_reactNative.View,{style:styles.listViewContainer,__source:{fileName:_jsxFileName,lineNumber:163}},
+	_react2.default.createElement(_reactNative.View,{style:styles.listViewContainer,__source:{fileName:_jsxFileName,lineNumber:164}},
 	_react2.default.createElement(_reactNative.ListView,{
 	dataSource:this.ds.cloneWithRows(this.state.textRoomData),
-	renderRow:function renderRow(rowData){return _react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:166}},rowData.user+': '+rowData.message);},__source:{fileName:_jsxFileName,lineNumber:164}}),
+	renderRow:function renderRow(rowData){return _react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:167}},rowData.user+': '+rowData.message);},__source:{fileName:_jsxFileName,lineNumber:165}}),
 	
 	_react2.default.createElement(_reactNative.TextInput,{
 	style:{width:200,height:30,borderColor:'gray',borderWidth:1},
 	onChangeText:function onChangeText(value){return _this.setState({textRoomValue:value});},
-	value:this.state.textRoomValue,__source:{fileName:_jsxFileName,lineNumber:168}}),
+	value:this.state.textRoomValue,__source:{fileName:_jsxFileName,lineNumber:169}}),
 	
 	_react2.default.createElement(_reactNative.TouchableHighlight,{
-	onPress:this._textRoomPress,__source:{fileName:_jsxFileName,lineNumber:173}},
-	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:175}},'Send'))));
+	onPress:this._textRoomPress,__source:{fileName:_jsxFileName,lineNumber:174}},
+	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:176}},'Send'))));
 	
 	
 	
@@ -22292,43 +22293,43 @@
 	
 	
 	return(
-	_react2.default.createElement(_reactNative.View,{style:styles.container,__source:{fileName:_jsxFileName,lineNumber:184}},
-	_react2.default.createElement(_reactNative.Text,{style:styles.welcome,__source:{fileName:_jsxFileName,lineNumber:185}},
+	_react2.default.createElement(_reactNative.View,{style:styles.container,__source:{fileName:_jsxFileName,lineNumber:185}},
+	_react2.default.createElement(_reactNative.Text,{style:styles.welcome,__source:{fileName:_jsxFileName,lineNumber:186}},
 	this.state.info),
 	
 	this.state.textRoomConnected&&this._renderTextRoom(),
-	_react2.default.createElement(_reactNative.View,{style:{flexDirection:'row'},__source:{fileName:_jsxFileName,lineNumber:189}},
-	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:190}},
+	_react2.default.createElement(_reactNative.View,{style:{flexDirection:'row'},__source:{fileName:_jsxFileName,lineNumber:190}},
+	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:191}},
 	this.state.isFront?"Use front camera":"Use back camera"),
 	
 	_react2.default.createElement(_reactNative.TouchableHighlight,{
 	style:{borderWidth:1,borderColor:'black'},
-	onPress:this._switchVideoType,__source:{fileName:_jsxFileName,lineNumber:193}},
-	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:196}},'Switch camera'))),
+	onPress:this._switchVideoType,__source:{fileName:_jsxFileName,lineNumber:194}},
+	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:197}},'Switch camera'))),
 	
 	
 	this.state.status=='ready'?
-	_react2.default.createElement(_reactNative.View,{__source:{fileName:_jsxFileName,lineNumber:200}},
+	_react2.default.createElement(_reactNative.View,{__source:{fileName:_jsxFileName,lineNumber:201}},
 	_react2.default.createElement(_reactNative.TextInput,{
 	ref:'roomID',
 	autoCorrect:false,
 	style:{width:200,height:40,borderColor:'gray',borderWidth:1},
 	onChangeText:function onChangeText(text){return _this2.setState({roomID:text});},
-	value:this.state.roomID,__source:{fileName:_jsxFileName,lineNumber:201}}),
+	value:this.state.roomID,__source:{fileName:_jsxFileName,lineNumber:202}}),
 	
 	_react2.default.createElement(_reactNative.TouchableHighlight,{
-	onPress:this._press,__source:{fileName:_jsxFileName,lineNumber:208}},
-	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:210}},'Enter room'))):
+	onPress:this._press,__source:{fileName:_jsxFileName,lineNumber:209}},
+	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:211}},'Enter room'))):
 	
 	null,
 	
-	_react2.default.createElement(_reactNativeWebrtc.RTCView,{streamURL:this.state.selfViewSrc,style:styles.selfView,__source:{fileName:_jsxFileName,lineNumber:214}}),
+	_react2.default.createElement(_reactNativeWebrtc.RTCView,{streamURL:this.state.selfViewSrc,autoPlay:true,muted:true,style:styles.selfView,__source:{fileName:_jsxFileName,lineNumber:215}}),
 	
 	mapHash(this.state.remoteList,function(remote,index){
 	if(remote!==null&&remote!==undefined)
-	return _react2.default.createElement(_reactNativeWebrtc.RTCView,{key:index,streamURL:remote,style:styles.remoteView,__source:{fileName:_jsxFileName,lineNumber:218}});else
+	return _react2.default.createElement(_reactNativeWebrtc.RTCView,{key:index,streamURL:remote,style:styles.remoteView,__source:{fileName:_jsxFileName,lineNumber:219}});else
 	
-	return _react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:220}},'No Stream');
+	return _react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:221}},'No Stream');
 	})));
 	
 	
@@ -22664,12 +22665,7 @@
 	};
 	
 	didConnect=function didConnect(){
-	channel.getMedia({
-	audio:true,
-	video:{
-	facingMode:"user"}},
-	
-	function(stream){});
+	channel.getMedia(configuration.mediaConstraints,function(stream){});
 	};
 	
 	didExchange=function didExchange(data){
@@ -22840,8 +22836,18 @@
 	
 	
 	
+	
+	
 	function RTCView(props,context){_classCallCheck(this,RTCView);var _this=_possibleConstructorReturn(this,(RTCView.__proto__||Object.getPrototypeOf(RTCView)).call(this,
 	props,context));_this.
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -22958,7 +22964,7 @@
 	_this._updateRTCViewState(STATUS_LOADED);
 	if(onLoad){onLoad(event);}
 	_this._onLoadEnd();
-	};var uri=(0,_resolveAssetSource2.default)(props.source);_this._rtcVideoViewState=uri?STATUS_PENDING:STATUS_IDLE;_this.state={isLoaded:false};return _this;}_createClass(RTCView,[{key:'componentDidMount',value:function componentDidMount(){if(this._rtcVideoViewState===STATUS_PENDING){this._createRTCViewLoader();}}},{key:'componentDidUpdate',value:function componentDidUpdate(){if(this._rtcVideoViewState===STATUS_PENDING&&!this.rtcVideoView){this._createRTCViewLoader();}}},{key:'componentWillReceiveProps',value:function componentWillReceiveProps(nextProps){var nextUri=(0,_resolveAssetSource2.default)(nextProps.source);if((0,_resolveAssetSource2.default)(this.props.source)!==nextUri){this._updateRTCViewState(nextUri?STATUS_PENDING:STATUS_IDLE);}}},{key:'componentWillUnmount',value:function componentWillUnmount(){this._destroyRTCViewLoader();}},{key:'render',value:function render(){var isLoaded=this.state.isLoaded;var _props=this.props;var streamURL=_props.streamURL;var accessibilityLabel=_props.accessibilityLabel;var accessible=_props.accessible;var children=_props.children;var defaultSource=_props.defaultSource;var onLayout=_props.onLayout;var source=_props.source;var testID=_props.testID;var displayRTCView=(0,_resolveAssetSource2.default)(!isLoaded?defaultSource:source);var backgroundRTCView=displayRTCView?'url("'+displayRTCView+'")':null;var style=_reactNativeWeb.StyleSheet.flatten(this.props.style);var resizeMode=this.props.resizeMode||style.resizeMode||_RTCViewResizeMode2.default.cover;style= true?_extends({},style):style;delete style.resizeMode;return _react2.default.createElement(_reactNativeWeb.View,{accessibilityLabel:accessibilityLabel,accessibilityRole:'video',accessible:accessible,onLayout:onLayout,style:[styles.initial,style,backgroundRTCView&&{backgroundRTCView:backgroundRTCView},resizeModeStyles[resizeMode]],testID:testID,__source:{fileName:_jsxFileName,lineNumber:109}},(0,_reactNativeWeb.createDOMElement)('video',{autoPlay:'autoPlay',src:streamURL}),children?_react2.default.createElement(_reactNativeWeb.View,{children:children,pointerEvents:'box-none',style:styles.children,__source:{fileName:_jsxFileName,lineNumber:124}}):null);}},{key:'_createRTCViewLoader',value:function _createRTCViewLoader(){var uri=(0,_resolveAssetSource2.default)(this.props.source);this._destroyRTCViewLoader();this.rtcVideoView=new window.RTCView();this.rtcVideoView.onerror=this._onError;this.rtcVideoView.onload=this._onLoad;this.rtcVideoView.src=uri;this._onLoadStart();}},{key:'_destroyRTCViewLoader',value:function _destroyRTCViewLoader(){if(this.rtcVideoView){this.rtcVideoView.onerror=null;this.rtcVideoView.onload=null;this.rtcVideoView=null;}}},{key:'_onLoadEnd',value:function _onLoadEnd()
+	};var uri=(0,_resolveAssetSource2.default)(props.source);_this._rtcVideoViewState=uri?STATUS_PENDING:STATUS_IDLE;_this.state={isLoaded:false};return _this;}_createClass(RTCView,[{key:'componentDidMount',value:function componentDidMount(){if(this._rtcVideoViewState===STATUS_PENDING){this._createRTCViewLoader();}}},{key:'componentDidUpdate',value:function componentDidUpdate(){if(this._rtcVideoViewState===STATUS_PENDING&&!this.rtcVideoView){this._createRTCViewLoader();}}},{key:'componentWillReceiveProps',value:function componentWillReceiveProps(nextProps){var nextUri=(0,_resolveAssetSource2.default)(nextProps.source);if((0,_resolveAssetSource2.default)(this.props.source)!==nextUri){this._updateRTCViewState(nextUri?STATUS_PENDING:STATUS_IDLE);}}},{key:'componentWillUnmount',value:function componentWillUnmount(){this._destroyRTCViewLoader();}},{key:'render',value:function render(){var isLoaded=this.state.isLoaded;var _props=this.props;var streamURL=_props.streamURL;var autoPlay=_props.autoPlay;var muted=_props.muted;var accessibilityLabel=_props.accessibilityLabel;var accessible=_props.accessible;var children=_props.children;var defaultSource=_props.defaultSource;var onLayout=_props.onLayout;var source=_props.source;var testID=_props.testID;var displayRTCView=(0,_resolveAssetSource2.default)(!isLoaded?defaultSource:source);var backgroundRTCView=displayRTCView?'url("'+displayRTCView+'")':null;var style=_reactNativeWeb.StyleSheet.flatten(this.props.style);var resizeMode=this.props.resizeMode||style.resizeMode||_RTCViewResizeMode2.default.cover;style= true?_extends({},style):style;delete style.resizeMode;var attributes={src:streamURL};if(muted!=null&&muted!=undefined&&muted)attributes.muted='muted';if(autoPlay!=null&&autoPlay!=undefined&&autoPlay)attributes.autoPlay='autoPlay';return _react2.default.createElement(_reactNativeWeb.View,{accessibilityLabel:accessibilityLabel,accessibilityRole:'video',accessible:accessible,onLayout:onLayout,style:[styles.initial,style,backgroundRTCView&&{backgroundRTCView:backgroundRTCView},resizeModeStyles[resizeMode]],testID:testID,__source:{fileName:_jsxFileName,lineNumber:119}},(0,_reactNativeWeb.createDOMElement)('video',attributes),children?_react2.default.createElement(_reactNativeWeb.View,{children:children,pointerEvents:'box-none',style:styles.children,__source:{fileName:_jsxFileName,lineNumber:134}}):null);}},{key:'_createRTCViewLoader',value:function _createRTCViewLoader(){var uri=(0,_resolveAssetSource2.default)(this.props.source);this._destroyRTCViewLoader();this.rtcVideoView=new window.RTCView();this.rtcVideoView.onerror=this._onError;this.rtcVideoView.onload=this._onLoad;this.rtcVideoView.src=uri;this._onLoadStart();}},{key:'_destroyRTCViewLoader',value:function _destroyRTCViewLoader(){if(this.rtcVideoView){this.rtcVideoView.onerror=null;this.rtcVideoView.onload=null;this.rtcVideoView=null;}}},{key:'_onLoadEnd',value:function _onLoadEnd()
 	
 	{var
 	onLoadEnd=this.props.onLoadEnd;
@@ -22977,7 +22983,7 @@
 	if(isLoaded!==this.state.isLoaded){
 	this.setState({isLoaded:isLoaded});
 	}
-	}}]);return RTCView;}(_react.Component),_class.displayName='RTCView',_class.propTypes=_extends({},_reactNativeWeb.View.propTypes,{width:_react.PropTypes.number,height:_react.PropTypes.number,streamURL:_react.PropTypes.string,children:_react.PropTypes.any,defaultSource:RTCViewSourcePropType,onError:_react.PropTypes.func,onLayout:_react.PropTypes.func,onLoad:_react.PropTypes.func,onLoadEnd:_react.PropTypes.func,onLoadStart:_react.PropTypes.func,source:RTCViewSourcePropType}),_class.defaultProps={},_class.resizeMode=_RTCViewResizeMode2.default,_temp);
+	}}]);return RTCView;}(_react.Component),_class.displayName='RTCView',_class.propTypes=_extends({},_reactNativeWeb.View.propTypes,{width:_react.PropTypes.number,height:_react.PropTypes.number,streamURL:_react.PropTypes.string,muted:_react.PropTypes.string,autoPlay:_react.PropTypes.string,children:_react.PropTypes.any,defaultSource:RTCViewSourcePropType,onError:_react.PropTypes.func,onLayout:_react.PropTypes.func,onLoad:_react.PropTypes.func,onLoadEnd:_react.PropTypes.func,onLoadStart:_react.PropTypes.func,source:RTCViewSourcePropType}),_class.defaultProps={},_class.resizeMode=_RTCViewResizeMode2.default,_temp);
 	
 	
 	var styles=_reactNativeWeb.StyleSheet.create({
