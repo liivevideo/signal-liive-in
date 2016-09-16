@@ -48,13 +48,6 @@ listenHttps = (config, sslOptions) ->
 if (config.env=='local')
   serverHttp = listenHttp(config)
   serverHttps = listenHttps(config, sslOptions)
-else if (config.heroku?)
-  if sslOptions?
-    serverHttps = listenHttps(config, sslOptions)
-    serverHttp = serverHttps
-  else
-    serverHttp = listenHttp(config)
-    serverHttps = serverHttp
 else
   serverHttp = listenHttp(config)
   serverHttps = serverHttp

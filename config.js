@@ -20,42 +20,13 @@
       requestCert: false,
       rejectUnauthorized: false
     };
-  } else if (process.env.OPENSHIFT != null) {
-    config = {
-      env: process.env.NODE_ENV || 'develop',
-      httpPort: process.env.OPENSHIFT_NODEJS_PORT || '',
-      httpIp: process.env.OPENSHIFT_NODEJS_IP,
-      cdn: '/build/bundle.js'
-    };
-    sslOptions = null;
-    if ((process.env.KEY != null) && (process.env.CERT != null) && (process.env.CA != null)) {
-      sslOptions = {
-        key: process.env.KEY,
-        cert: process.env.CERT,
-        ca: process.env.CA,
-        requestCert: false,
-        rejectUnauthorized: false
-      };
-      config.httpsPort = process.env.PORT || '';
-    }
   } else {
     config = {
       env: process.env.NODE_ENV || 'develop',
       httpPort: process.env.PORT || '',
-      cdn: '/build/bundle.js',
-      heroku: true
+      cdn: 'https://s3-us-west-2.amazonaws.com/liive-cdn/bundle.js'
     };
     sslOptions = null;
-    if ((process.env.KEY != null) && (process.env.CERT != null) && (process.env.CA != null)) {
-      sslOptions = {
-        key: process.env.KEY,
-        cert: process.env.CERT,
-        ca: process.env.CA,
-        requestCert: false,
-        rejectUnauthorized: false
-      };
-      config.httpsPort = process.env.PORT || '';
-    }
   }
 
   config.title = pjson.title;
