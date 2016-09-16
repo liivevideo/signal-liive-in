@@ -31,7 +31,6 @@
     "stylus": "^0.42.3"
   },
   "devDependencies": {
-    "coffeescript-compiler": "^0.1.1",
     "chai": "^3.5.0",
     "coffee-import": "^1.0.0",
     "concurrent-transform": "^1.0.0",
