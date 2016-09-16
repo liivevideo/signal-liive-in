@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1dc006d30cc28534bed9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "653ecd6f6cd45c749a37"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -22119,6 +22119,8 @@
 	
 	
 	
+	
+	
 	var _socket=__webpack_require__(510);var _socket2=_interopRequireDefault(_socket);
 	
 	var _reactNativeWebrtc=__webpack_require__(249);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
@@ -22269,19 +22271,19 @@
 	},
 	_renderTextRoom:function _renderTextRoom(){var _this=this;
 	return(
-	_react2.default.createElement(_reactNative.View,{style:styles.listViewContainer,__source:{fileName:_jsxFileName,lineNumber:161}},
+	_react2.default.createElement(_reactNative.View,{style:styles.listViewContainer,__source:{fileName:_jsxFileName,lineNumber:163}},
 	_react2.default.createElement(_reactNative.ListView,{
 	dataSource:this.ds.cloneWithRows(this.state.textRoomData),
-	renderRow:function renderRow(rowData){return _react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:164}},rowData.user+': '+rowData.message);},__source:{fileName:_jsxFileName,lineNumber:162}}),
+	renderRow:function renderRow(rowData){return _react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:166}},rowData.user+': '+rowData.message);},__source:{fileName:_jsxFileName,lineNumber:164}}),
 	
 	_react2.default.createElement(_reactNative.TextInput,{
 	style:{width:200,height:30,borderColor:'gray',borderWidth:1},
 	onChangeText:function onChangeText(value){return _this.setState({textRoomValue:value});},
-	value:this.state.textRoomValue,__source:{fileName:_jsxFileName,lineNumber:166}}),
+	value:this.state.textRoomValue,__source:{fileName:_jsxFileName,lineNumber:168}}),
 	
 	_react2.default.createElement(_reactNative.TouchableHighlight,{
-	onPress:this._textRoomPress,__source:{fileName:_jsxFileName,lineNumber:171}},
-	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:173}},'Send'))));
+	onPress:this._textRoomPress,__source:{fileName:_jsxFileName,lineNumber:173}},
+	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:175}},'Send'))));
 	
 	
 	
@@ -22290,43 +22292,43 @@
 	
 	
 	return(
-	_react2.default.createElement(_reactNative.View,{style:styles.container,__source:{fileName:_jsxFileName,lineNumber:182}},
-	_react2.default.createElement(_reactNative.Text,{style:styles.welcome,__source:{fileName:_jsxFileName,lineNumber:183}},
+	_react2.default.createElement(_reactNative.View,{style:styles.container,__source:{fileName:_jsxFileName,lineNumber:184}},
+	_react2.default.createElement(_reactNative.Text,{style:styles.welcome,__source:{fileName:_jsxFileName,lineNumber:185}},
 	this.state.info),
 	
 	this.state.textRoomConnected&&this._renderTextRoom(),
-	_react2.default.createElement(_reactNative.View,{style:{flexDirection:'row'},__source:{fileName:_jsxFileName,lineNumber:187}},
-	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:188}},
+	_react2.default.createElement(_reactNative.View,{style:{flexDirection:'row'},__source:{fileName:_jsxFileName,lineNumber:189}},
+	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:190}},
 	this.state.isFront?"Use front camera":"Use back camera"),
 	
 	_react2.default.createElement(_reactNative.TouchableHighlight,{
 	style:{borderWidth:1,borderColor:'black'},
-	onPress:this._switchVideoType,__source:{fileName:_jsxFileName,lineNumber:191}},
-	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:194}},'Switch camera'))),
+	onPress:this._switchVideoType,__source:{fileName:_jsxFileName,lineNumber:193}},
+	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:196}},'Switch camera'))),
 	
 	
 	this.state.status=='ready'?
-	_react2.default.createElement(_reactNative.View,{__source:{fileName:_jsxFileName,lineNumber:198}},
+	_react2.default.createElement(_reactNative.View,{__source:{fileName:_jsxFileName,lineNumber:200}},
 	_react2.default.createElement(_reactNative.TextInput,{
 	ref:'roomID',
 	autoCorrect:false,
 	style:{width:200,height:40,borderColor:'gray',borderWidth:1},
 	onChangeText:function onChangeText(text){return _this2.setState({roomID:text});},
-	value:this.state.roomID,__source:{fileName:_jsxFileName,lineNumber:199}}),
+	value:this.state.roomID,__source:{fileName:_jsxFileName,lineNumber:201}}),
 	
 	_react2.default.createElement(_reactNative.TouchableHighlight,{
-	onPress:this._press,__source:{fileName:_jsxFileName,lineNumber:206}},
-	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:208}},'Enter room'))):
+	onPress:this._press,__source:{fileName:_jsxFileName,lineNumber:208}},
+	_react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:210}},'Enter room'))):
 	
 	null,
 	
-	_react2.default.createElement(_reactNativeWebrtc.RTCView,{streamURL:this.state.selfViewSrc,style:styles.selfView,__source:{fileName:_jsxFileName,lineNumber:212}}),
+	_react2.default.createElement(_reactNativeWebrtc.RTCView,{streamURL:this.state.selfViewSrc,style:styles.selfView,__source:{fileName:_jsxFileName,lineNumber:214}}),
 	
 	mapHash(this.state.remoteList,function(remote,index){
 	if(remote!==null&&remote!==undefined)
-	return _react2.default.createElement(_reactNativeWebrtc.RTCView,{key:index,streamURL:remote,style:styles.remoteView,__source:{fileName:_jsxFileName,lineNumber:216}});else
+	return _react2.default.createElement(_reactNativeWebrtc.RTCView,{key:index,streamURL:remote,style:styles.remoteView,__source:{fileName:_jsxFileName,lineNumber:218}});else
 	
-	return _react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:218}},'No Stream');
+	return _react2.default.createElement(_reactNative.Text,{__source:{fileName:_jsxFileName,lineNumber:220}},'No Stream');
 	})));
 	
 	
@@ -22606,13 +22608,16 @@
 	Handshake=__webpack_require__(236);
 	
 	Room=function(){
-	var channel,didConnect,didExchange,didLeave,exchangeCandidate,exchangeDescription,handshake;
+	var channel,configuration,didConnect,didExchange,didLeave,exchangeCandidate,exchangeDescription,handshake;
 	
 	handshake=null;
 	
 	channel=null;
 	
-	function Room(configuration,_observers){
+	configuration=null;
+	
+	function Room(_configuration,_observers){
+	configuration=_configuration;
 	channel=new RTCChannel(configuration,_observers,{
 	exchangeDescription:exchangeDescription,
 	exchangeCandidate:exchangeCandidate});
@@ -22660,8 +22665,10 @@
 	
 	didConnect=function didConnect(){
 	channel.getMedia({
-	"audio":true,
-	"video":true},
+	audio:true,
+	video:{
+	facingMode:"user"}},
+	
 	function(stream){});
 	};
 	
